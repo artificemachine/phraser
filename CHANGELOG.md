@@ -156,3 +156,4 @@
 - Modular architecture with managers for audio, models, and transcription
 - 2026-05-01: feat: phraser rebrand — replace all Handy icons/logos with new waveform design, rename code references, update i18n, bump to v0.8.0
 - 2026-05-01: feat: MP3 recording output format, AudioFormat setting with WAV/MP3 toggle (v0.9.0)
+- 2026-05-01: fix: add audioFormat i18n translations to all 16 locales

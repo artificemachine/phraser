@@ -229,6 +229,12 @@
         "history": "Geçmiş",
         "experimental": "Deneysel"
       },
+      "audioFormat": {
+        "title": "Kayıt Formatı",
+        "description": "Kaydedilen kayıtlar için dosya formatını seçin. MP3, WAV'dan yaklaşık 10 kat daha küçüktür.",
+        "wav": "WAV (kayıpsız)",
+        "mp3": "MP3 (sıkıştırılmış)"
+      },
       "experimentalToggle": {
         "label": "Deneysel Özellikler",
         "description": "Hala geliştirme aşamasında olan deneysel özellikleri etkinleştir."

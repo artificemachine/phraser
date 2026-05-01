@@ -229,6 +229,12 @@
         "history": "Verlauf",
         "experimental": "Experimentell"
       },
+      "audioFormat": {
+        "title": "Aufnahmeformat",
+        "description": "Wählen Sie das Dateiformat für gespeicherte Aufnahmen. MP3 ist ca. 10× kleiner als WAV.",
+        "wav": "WAV (verlustfrei)",
+        "mp3": "MP3 (komprimiert)"
+      },
       "experimentalToggle": {
         "label": "Experimentelle Funktionen",
         "description": "Experimentelle Funktionen aktivieren, die sich noch in Entwicklung befinden."

@@ -229,6 +229,12 @@
         "history": "履歴",
         "experimental": "実験的"
       },
+      "audioFormat": {
+        "title": "録音フォーマット",
+        "description": "保存する録音のファイル形式を選択します。MP3はWAVの約10分の1のサイズです。",
+        "wav": "WAV（ロスレス）",
+        "mp3": "MP3（圧縮）"
+      },
       "experimentalToggle": {
         "label": "実験的機能",
         "description": "まだ開発中の実験的機能を有効にします。"

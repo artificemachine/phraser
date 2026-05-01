@@ -229,6 +229,12 @@
         "history": "Historia",
         "experimental": "Eksperymentalne"
       },
+      "audioFormat": {
+        "title": "Format nagrywania",
+        "description": "Wybierz format pliku dla zapisanych nagrań. MP3 jest ok. 10 razy mniejszy niż WAV.",
+        "wav": "WAV (bezstratny)",
+        "mp3": "MP3 (skompresowany)"
+      },
       "experimentalToggle": {
         "label": "Funkcje Eksperymentalne",
         "description": "Włącz funkcje eksperymentalne, które są jeszcze w fazie rozwoju."

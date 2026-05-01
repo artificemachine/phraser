@@ -229,6 +229,12 @@
         "history": "Cronologia",
         "experimental": "Sperimentale"
       },
+      "audioFormat": {
+        "title": "Formato di registrazione",
+        "description": "Scegli il formato file per le registrazioni salvate. MP3 è circa 10 volte più piccolo di WAV.",
+        "wav": "WAV (senza perdita)",
+        "mp3": "MP3 (compresso)"
+      },
       "experimentalToggle": {
         "label": "Funzionalità Sperimentali",
         "description": "Abilita le funzionalità sperimentali ancora in fase di sviluppo."

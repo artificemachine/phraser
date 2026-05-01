@@ -229,6 +229,12 @@
         "history": "히스토리",
         "experimental": "실험적"
       },
+      "audioFormat": {
+        "title": "녹음 형식",
+        "description": "저장된 녹음의 파일 형식을 선택하세요. MP3는 WAV보다 약 10배 작습니다.",
+        "wav": "WAV (무손실)",
+        "mp3": "MP3 (압축)"
+      },
       "experimentalToggle": {
         "label": "실험적 기능",
         "description": "개발 중인 실험적 기능을 활성화합니다."
