@@ -1,6 +1,6 @@
-# Releasing Phraser
+# Releasing phraser
 
-How to create and publish a new release of Phraser.
+How to create and publish a new release of phraser.
 
 ## Prerequisites
 
@@ -123,7 +123,7 @@ The workflow will:
 
 ## Landing Page
 
-The project website is served via GitHub Pages from the `docs/` folder on the `main` branch. Any changes pushed to `docs/` will automatically deploy to `celstnblacc.github.io/Phraser`.
+The project website is served via GitHub Pages from the `docs/` folder on the `main` branch. Any changes pushed to `docs/` will automatically deploy to `celstnblacc.github.io/phraser`.
 
 To set up GitHub Pages:
 

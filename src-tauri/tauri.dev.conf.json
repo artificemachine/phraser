@@ -1,12 +1,12 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "PhraserDev",
+  "productName": "phraserDev",
   "identifier": "com.newblacc.phraser.dev",
   "app": {
     "windows": [
       {
         "label": "main",
-        "title": "PhraserDev",
+        "title": "phraserDev",
         "width": 680,
         "height": 570,
         "minWidth": 680,

@@ -1,6 +1,6 @@
-# Phraser 7-Layer Security Model
+# phraser 7-Layer Security Model
 
-This document adapts the 7-layer security pipeline model to this repository (`Phraser`), a Tauri desktop app with a Rust backend and React/Bun frontend.
+This document adapts the 7-layer security pipeline model to this repository (`phraser`), a Tauri desktop app with a Rust backend and React/Bun frontend.
 
 ## Layer 1: Dependency Risk
 

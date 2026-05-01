@@ -1,6 +1,6 @@
 # Voice Terminal — Beginner Guide
 
-> How to use the full Ghostty + Zellij + Yazi + lazygit + Phraser stack day-to-day.
+> How to use the full Ghostty + Zellij + Yazi + lazygit + phraser stack day-to-day.
 
 ---
 
@@ -69,7 +69,7 @@ Click the Yazi pane or move to it. Basic keys:
 In your **shell pane**, type:
 
 ```bash
-z phraser        # jumps to Phraser project
+z phraser        # jumps to phraser project
 z src            # jumps to most visited "src" dir
 z downloads      # jumps to Downloads
 ```
@@ -95,7 +95,7 @@ Move to the lazygit pane. Basic keys:
 
 ---
 
-## Step 6 — Voice commands with Phraser
+## Step 6 — Voice commands with phraser
 
 Make sure your **shell pane is focused**, then:
 
@@ -153,7 +153,7 @@ z <name>         → jump to directory
 y                → open file browser (cd follows on quit)
 lazygit          → open git UI
 
-Voice shortcuts (Phraser):
+Voice shortcuts (phraser):
   Ctrl+1 → navigate (zoxide)
   Ctrl+2 → browse files (yazi)
   Ctrl+3 → bash command (Ollama)

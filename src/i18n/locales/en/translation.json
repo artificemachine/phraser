@@ -87,7 +87,7 @@
     },
     "permissions": {
       "title": "Permissions Required",
-      "description": "Phraser needs a couple of permissions to work properly.",
+      "description": "phraser needs a couple of permissions to work properly.",
       "microphone": {
         "title": "Microphone Access",
         "description": "Required to hear your voice for transcription."
@@ -154,7 +154,7 @@
     "general": {
       "title": "General",
       "shortcut": {
-        "title": "Phraser Shortcuts",
+        "title": "phraser Shortcuts",
         "description": "Configure keyboard shortcuts to trigger speech-to-text recording",
         "loading": "Loading shortcuts...",
         "none": "No shortcuts configured",
@@ -274,11 +274,11 @@
       },
       "autostart": {
         "label": "Launch on Startup",
-        "description": "Automatically start Phraser when you log in to your computer."
+        "description": "Automatically start phraser when you log in to your computer."
       },
       "showTrayIcon": {
         "label": "Show Tray Icon",
-        "description": "Display the Phraser icon in the system tray."
+        "description": "Display the phraser icon in the system tray."
       },
       "overlay": {
         "title": "Overlay Position",
@@ -480,7 +480,7 @@
       },
       "updateChecks": {
         "label": "Check for Updates",
-        "description": "Automatically check for new versions of Phraser"
+        "description": "Automatically check for new versions of phraser"
       },
       "soundTheme": {
         "label": "Sound Theme",
@@ -544,11 +544,11 @@
       "title": "About",
       "version": {
         "title": "Version",
-        "description": "Current version of Phraser"
+        "description": "Current version of phraser"
       },
       "appDataDirectory": {
         "title": "App Data Directory",
-        "description": "Location where Phraser stores its data"
+        "description": "Location where phraser stores its data"
       },
       "sourceCode": {
         "title": "Source Code",
@@ -557,7 +557,7 @@
       },
       "supportDevelopment": {
         "title": "Support Development",
-        "description": "Help us continue building Phraser",
+        "description": "Help us continue building phraser",
         "button": "Donate"
       },
       "acknowledgments": {
@@ -565,7 +565,7 @@
         "whisper": {
           "title": "Whisper.cpp",
           "description": "High-performance inference of OpenAI's Whisper automatic speech recognition model",
-          "details": "Phraser uses Whisper.cpp for fast, local speech-to-text processing. Thanks to the amazing work by Georgi Gerganov and contributors."
+          "details": "phraser uses Whisper.cpp for fast, local speech-to-text processing. Thanks to the amazing work by Georgi Gerganov and contributors."
         }
       }
     }
@@ -608,7 +608,7 @@
   },
   "accessibility": {
     "permissionsRequired": "Accessibility Permissions Required",
-    "permissionsDescription": "Phraser needs accessibility permissions to type transcribed text.",
+    "permissionsDescription": "phraser needs accessibility permissions to type transcribed text.",
     "openSettings": "Open System Settings",
     "dismiss": "Dismiss"
   },
@@ -617,7 +617,7 @@
   },
   "appLanguage": {
     "title": "Application Language",
-    "description": "Change the language of the Phraser interface"
+    "description": "Change the language of the phraser interface"
   },
   "overlay": {
     "transcribing": "Transcribing...",

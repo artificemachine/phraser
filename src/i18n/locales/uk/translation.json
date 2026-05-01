@@ -83,7 +83,7 @@
     },
     "permissions": {
       "title": "Потрібні дозволи",
-      "description": "Phraser потребує деяких дозволів для коректної роботи.",
+      "description": "phraser потребує деяких дозволів для коректної роботи.",
       "microphone": {
         "title": "Доступ до мікрофона",
         "description": "Потрібен для прослуховування вашого голосу для транскрипції."
@@ -239,11 +239,11 @@
       },
       "autostart": {
         "label": "Запуск при старті системи",
-        "description": "Автоматично запускати Phraser при вході в систему"
+        "description": "Автоматично запускати phraser при вході в систему"
       },
       "showTrayIcon": {
         "label": "Показати значок у треї",
-        "description": "Відображати значок Phraser у системному треї."
+        "description": "Відображати значок phraser у системному треї."
       },
       "overlay": {
         "title": "Позиція оверлею",
@@ -404,7 +404,7 @@
       },
       "updateChecks": {
         "label": "Перевірка оновлень",
-        "description": "Автоматично перевіряти наявність нових версій Phraser"
+        "description": "Автоматично перевіряти наявність нових версій phraser"
       },
       "soundTheme": {
         "label": "Звукова тема",
@@ -468,11 +468,11 @@
       "title": "Інфо",
       "version": {
         "title": "Версія",
-        "description": "Поточна версія Phraser"
+        "description": "Поточна версія phraser"
       },
       "appDataDirectory": {
         "title": "Папка даних програми",
-        "description": "Розташування даних Phraser"
+        "description": "Розташування даних phraser"
       },
       "sourceCode": {
         "title": "Вихідний код",
@@ -481,7 +481,7 @@
       },
       "supportDevelopment": {
         "title": "Підтримати розробку",
-        "description": "Допоможіть нам продовжувати розвивати Phraser",
+        "description": "Допоможіть нам продовжувати розвивати phraser",
         "button": "Підтримати"
       },
       "acknowledgments": {
@@ -489,7 +489,7 @@
         "whisper": {
           "title": "Whisper.cpp",
           "description": "Високопродуктивний інференс моделі автоматичного розпізнавання мовлення Whisper від OpenAI",
-          "details": "Phraser використовує Whisper.cpp для швидкої локальної обробки мовлення в текст. Дякуємо за чудову роботу Георгію Герганову та контриб'юторам."
+          "details": "phraser використовує Whisper.cpp для швидкої локальної обробки мовлення в текст. Дякуємо за чудову роботу Георгію Герганову та контриб'юторам."
         }
       }
     }
@@ -532,7 +532,7 @@
   },
   "accessibility": {
     "permissionsRequired": "Потрібні права доступу",
-    "permissionsDescription": "Phraser потребує дозволи доступності для введення транскрибованого тексту.",
+    "permissionsDescription": "phraser потребує дозволи доступності для введення транскрибованого тексту.",
     "openSettings": "Відкрити Системні налаштування",
     "dismiss": "Закрити"
   },
@@ -541,7 +541,7 @@
   },
   "appLanguage": {
     "title": "Мова інтерфейсу",
-    "description": "Змінити мову інтерфейсу Phraser"
+    "description": "Змінити мову інтерфейсу phraser"
   },
   "overlay": {
     "transcribing": "Обробка...",
