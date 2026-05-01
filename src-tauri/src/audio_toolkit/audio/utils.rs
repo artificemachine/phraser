@@ -1,6 +1,7 @@
 use anyhow::Result;
 use hound::{WavReader, WavSpec, WavWriter};
 use log::debug;
+use mp3lame_encoder::{Builder, FlushNoGap, InterleavedPcm};
 use std::path::Path;
 
 /// Load audio samples from a WAV file, converting i16 samples back to f32
@@ -37,6 +38,50 @@ pub async fn save_wav_file<P: AsRef<Path>>(file_path: P, samples: &[f32]) -> Res
 
     writer.finalize()?;
     debug!("Saved WAV file: {:?}", file_path.as_ref());
+    Ok(())
+}
+
+/// Save audio samples as an MP3 file (128kbps CBR, mono, 16kHz)
+pub async fn save_mp3_file<P: AsRef<Path>>(file_path: P, samples: &[f32]) -> Result<()> {
+    use std::mem::MaybeUninit;
+
+    let mut mp3_encoder = Builder::new().expect("failed to create LAME builder");
+    mp3_encoder.set_num_channels(1).expect("set channels");
+    mp3_encoder
+        .set_sample_rate(16_000)
+        .expect("set sample rate");
+    mp3_encoder
+        .set_brate(mp3lame_encoder::Birtate::Kbps128)
+        .expect("set bitrate");
+    mp3_encoder
+        .set_quality(mp3lame_encoder::Quality::Best)
+        .expect("set quality");
+    let mut encoder = mp3_encoder.build().expect("build encoder");
+
+    let pcm_i16: Vec<i16> = samples
+        .iter()
+        .map(|s| (s.clamp(-1.0, 1.0) * i16::MAX as f32) as i16)
+        .collect();
+
+    let input = InterleavedPcm(&pcm_i16);
+    let buf_size = mp3lame_encoder::max_required_buffer_size(pcm_i16.len());
+    let mut mp3_buf: Vec<MaybeUninit<u8>> = vec![MaybeUninit::uninit(); buf_size];
+
+    let encoded_size = encoder.encode(input, &mut mp3_buf).expect("encode");
+
+    let mut flush_buf: Vec<MaybeUninit<u8>> = vec![MaybeUninit::uninit(); 7200];
+    let flush_size = encoder.flush::<FlushNoGap>(&mut flush_buf).expect("flush");
+
+    let mut output = Vec::with_capacity(encoded_size + flush_size);
+    for byte in &mp3_buf[..encoded_size] {
+        output.push(unsafe { byte.assume_init() });
+    }
+    for byte in &flush_buf[..flush_size] {
+        output.push(unsafe { byte.assume_init() });
+    }
+
+    std::fs::write(file_path.as_ref(), &output)?;
+    debug!("Saved MP3 file: {:?}", file_path.as_ref());
     Ok(())
 }
 

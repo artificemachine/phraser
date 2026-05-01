@@ -19,6 +19,7 @@ import { ExperimentalToggle } from "../ExperimentalToggle";
 import { useSettings } from "../../../hooks/useSettings";
 import { KeyboardImplementationSelector } from "../debug/KeyboardImplementationSelector";
 import { GeminiSettings } from "./GeminiSettings";
+import { AudioFormatSelector } from "../AudioFormatSelector";
 
 export const AdvancedSettings: React.FC = () => {
   const { t } = useTranslation();
@@ -58,6 +59,7 @@ export const AdvancedSettings: React.FC = () => {
           descriptionMode="tooltip"
           grouped={true}
         />
+        <AudioFormatSelector descriptionMode="tooltip" grouped={true} />
       </SettingsGroup>
 
       <PostProcessingToggle descriptionMode="tooltip" grouped={false} />

@@ -264,6 +264,12 @@
         "experimental": "Experimental",
         "cloudModels": "Cloud Models"
       },
+      "audioFormat": {
+        "title": "Recording Format",
+        "description": "Choose the file format for saved recordings. MP3 is ~10x smaller than WAV.",
+        "wav": "WAV (lossless)",
+        "mp3": "MP3 (compressed)"
+      },
       "experimentalToggle": {
         "label": "Experimental Features",
         "description": "Enable experimental features that are still in development."
