@@ -229,6 +229,12 @@
         "history": "Lịch sử",
         "experimental": "Thử nghiệm"
       },
+      "audioFormat": {
+        "title": "Định dạng ghi âm",
+        "description": "Chọn định dạng tệp cho các bản ghi đã lưu. MP3 nhỏ hơn WAV khoảng 10 lần.",
+        "wav": "WAV (không nén)",
+        "mp3": "MP3 (nén)"
+      },
       "experimentalToggle": {
         "label": "Tính năng thử nghiệm",
         "description": "Bật các tính năng thử nghiệm đang trong quá trình phát triển."

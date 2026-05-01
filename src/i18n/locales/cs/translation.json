@@ -229,6 +229,12 @@
         "history": "Historie",
         "experimental": "Experimentální"
       },
+      "audioFormat": {
+        "title": "Formát nahrávání",
+        "description": "Vyberte formát souboru pro uložené nahrávky. MP3 je přibližně 10× menší než WAV.",
+        "wav": "WAV (bezztrátový)",
+        "mp3": "MP3 (komprimovaný)"
+      },
       "experimentalToggle": {
         "label": "Experimentální funkce",
         "description": "Povolit experimentální funkce, které jsou stále ve vývoji."

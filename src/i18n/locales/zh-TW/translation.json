@@ -229,6 +229,12 @@
         "history": "歷史",
         "experimental": "實驗性"
       },
+      "audioFormat": {
+        "title": "錄音格式",
+        "description": "選擇已儲存錄音的檔案格式。MP3 比 WAV 小約 10 倍。",
+        "wav": "WAV（無損）",
+        "mp3": "MP3（壓縮）"
+      },
       "experimentalToggle": {
         "label": "實驗性功能",
         "description": "啟用仍在開發中的實驗性功能"
