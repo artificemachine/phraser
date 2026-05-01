@@ -1,6 +1,6 @@
 [package]
 name = "phraser"
-version = "0.8.0"
+version = "0.9.0"
 description = "phraser"
 authors = ["cjpais"]
 edition = "2021"
@@ -72,6 +72,7 @@ flate2 = "1.0"
 transcribe-rs = { version = "0.2.5", features = ["whisper", "parakeet", "moonshine", "sense_voice"] }
 phraser_keys = { package = "handy-keys", version = "0.2.1" }
 ferrous-opencc = "0.2.3"
+mp3lame-encoder = "0.2.4"
 clap = { version = "4", features = ["derive"] }
 specta = "=2.0.0-rc.22"
 specta-typescript = "0.0.9"

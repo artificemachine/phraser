@@ -605,6 +605,7 @@ fn spawn_save_transcription(
     post_processed_text: Option<String>,
     post_process_prompt: Option<String>,
     action_key: Option<u8>,
+    audio_format: crate::settings::AudioFormat,
 ) {
     let _ = tauri::async_runtime::spawn(async move {
         if let Err(e) = hm
@@ -614,6 +615,7 @@ fn spawn_save_transcription(
                 post_processed_text,
                 post_process_prompt,
                 action_key,
+                audio_format,
             )
             .await
         {
@@ -836,6 +838,7 @@ impl ShortcutAction for TranscribeAction {
                             result.post_processed_text,
                             result.post_process_prompt,
                             action_key_for_history,
+                            settings.audio_format,
                         );
                         paste_transcription_on_main_thread(ah.clone(), result.final_text);
                     }

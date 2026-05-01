@@ -9,7 +9,8 @@ use std::fs;
 use std::path::PathBuf;
 use tauri::{AppHandle, Emitter, Manager};
 
-use crate::audio_toolkit::save_wav_file;
+use crate::audio_toolkit::{save_mp3_file, save_wav_file};
+use crate::settings::AudioFormat;
 
 /// Database migrations for transcription history.
 /// Each migration is applied in order. The library tracks which migrations
@@ -214,14 +215,21 @@ impl HistoryManager {
         post_processed_text: Option<String>,
         post_process_prompt: Option<String>,
         post_process_action_key: Option<u8>,
+        audio_format: AudioFormat,
     ) -> Result<()> {
         let timestamp = Utc::now().timestamp();
-        let file_name = format!("phraser-{}.wav", timestamp);
+        let ext = match audio_format {
+            AudioFormat::Mp3 => "mp3",
+            AudioFormat::Wav => "wav",
+        };
+        let file_name = format!("phraser-{}.{}", timestamp, ext);
         let title = self.format_timestamp_title(timestamp);
 
-        // Save WAV file
         let file_path = self.recordings_dir.join(&file_name);
-        save_wav_file(file_path, &audio_samples).await?;
+        match audio_format {
+            AudioFormat::Mp3 => save_mp3_file(file_path, &audio_samples).await?,
+            AudioFormat::Wav => save_wav_file(file_path, &audio_samples).await?,
+        }
 
         // Save to database
         self.save_to_database(

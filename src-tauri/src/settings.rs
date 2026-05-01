@@ -153,6 +153,19 @@ pub struct PostProcessProvider {
 
 #[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Type)]
 #[serde(rename_all = "lowercase")]
+pub enum AudioFormat {
+    Wav,
+    Mp3,
+}
+
+impl Default for AudioFormat {
+    fn default() -> Self {
+        AudioFormat::Wav
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Type)]
+#[serde(rename_all = "lowercase")]
 pub enum OverlayPosition {
     None,
     Top,
@@ -366,6 +379,8 @@ pub struct AppSettings {
     pub history_limit: usize,
     #[serde(default = "default_recording_retention_period")]
     pub recording_retention_period: RecordingRetentionPeriod,
+    #[serde(default)]
+    pub audio_format: AudioFormat,
     #[serde(default)]
     pub paste_method: PasteMethod,
     #[serde(default)]
@@ -799,6 +814,7 @@ pub fn get_default_settings() -> AppSettings {
         word_correction_threshold: default_word_correction_threshold(),
         history_limit: default_history_limit(),
         recording_retention_period: default_recording_retention_period(),
+        audio_format: AudioFormat::default(),
         paste_method: PasteMethod::default(),
         clipboard_handling: ClipboardHandling::default(),
         auto_submit: default_auto_submit(),
