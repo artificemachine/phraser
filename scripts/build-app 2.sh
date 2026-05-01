@@ -21,7 +21,7 @@ fi
 TAURI_CONFIG="src-tauri/tauri.local.unsigned.conf.json"
 bun run tauri build --config "$TAURI_CONFIG" "$@"
 
-APP_PATH="src-tauri/target/release/bundle/macos/Phraser.app"
+APP_PATH="src-tauri/target/release/bundle/macos/phraser.app"
 if [ -d "$APP_PATH" ]; then
   echo ""
   echo "App bundle created:"

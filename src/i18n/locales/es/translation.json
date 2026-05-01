@@ -83,7 +83,7 @@
     },
     "permissions": {
       "title": "Permisos Requeridos",
-      "description": "Phraser necesita algunos permisos para funcionar correctamente.",
+      "description": "phraser necesita algunos permisos para funcionar correctamente.",
       "microphone": {
         "title": "Acceso al Micrófono",
         "description": "Necesario para escuchar tu voz para la transcripción."
@@ -158,7 +158,7 @@
     "general": {
       "title": "General",
       "shortcut": {
-        "title": "Atajos de Phraser",
+        "title": "Atajos de phraser",
         "description": "Configura atajos de teclado para activar la grabación de voz a texto",
         "loading": "Cargando atajos...",
         "none": "No hay atajos configurados",
@@ -239,11 +239,11 @@
       },
       "autostart": {
         "label": "Iniciar al Arranque",
-        "description": "Iniciar Phraser automáticamente cuando inicies sesión en tu computadora."
+        "description": "Iniciar phraser automáticamente cuando inicies sesión en tu computadora."
       },
       "showTrayIcon": {
         "label": "Mostrar Icono de Bandeja",
-        "description": "Mostrar el icono de Phraser en la bandeja del sistema."
+        "description": "Mostrar el icono de phraser en la bandeja del sistema."
       },
       "overlay": {
         "title": "Posición de Superposición",
@@ -404,7 +404,7 @@
       },
       "updateChecks": {
         "label": "Buscar Actualizaciones",
-        "description": "Buscar automáticamente nuevas versiones de Phraser"
+        "description": "Buscar automáticamente nuevas versiones de phraser"
       },
       "soundTheme": {
         "label": "Tema de Sonido",
@@ -468,11 +468,11 @@
       "title": "Acerca de",
       "version": {
         "title": "Versión",
-        "description": "Versión actual de Phraser"
+        "description": "Versión actual de phraser"
       },
       "appDataDirectory": {
         "title": "Directorio de Datos de la Aplicación",
-        "description": "Ubicación donde Phraser almacena sus datos"
+        "description": "Ubicación donde phraser almacena sus datos"
       },
       "sourceCode": {
         "title": "Código Fuente",
@@ -481,7 +481,7 @@
       },
       "supportDevelopment": {
         "title": "Apoyar el Desarrollo",
-        "description": "Ayúdanos a continuar construyendo Phraser",
+        "description": "Ayúdanos a continuar construyendo phraser",
         "button": "Donar"
       },
       "acknowledgments": {
@@ -489,7 +489,7 @@
         "whisper": {
           "title": "Whisper.cpp",
           "description": "Inferencia de alto rendimiento del modelo de reconocimiento automático de voz Whisper de OpenAI",
-          "details": "Phraser usa Whisper.cpp para procesamiento de voz a texto rápido y local. Gracias al increíble trabajo de Georgi Gerganov y colaboradores."
+          "details": "phraser usa Whisper.cpp para procesamiento de voz a texto rápido y local. Gracias al increíble trabajo de Georgi Gerganov y colaboradores."
         }
       }
     }
@@ -532,7 +532,7 @@
   },
   "accessibility": {
     "permissionsRequired": "Se Requieren Permisos de Accesibilidad",
-    "permissionsDescription": "Phraser necesita permisos de accesibilidad para escribir texto transcrito.",
+    "permissionsDescription": "phraser necesita permisos de accesibilidad para escribir texto transcrito.",
     "openSettings": "Abrir Ajustes del Sistema",
     "dismiss": "Descartar"
   },
@@ -541,7 +541,7 @@
   },
   "appLanguage": {
     "title": "Idioma de la aplicación",
-    "description": "Cambia el idioma de la interfaz de Phraser"
+    "description": "Cambia el idioma de la interfaz de phraser"
   },
   "overlay": {
     "transcribing": "Transcribiendo...",

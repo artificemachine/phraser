@@ -1,4 +1,4 @@
-//! Tests that verify the "Phraser" branding is consistent across all config files.
+//! Tests that verify the "phraser" branding is consistent across all config files.
 //! These catch accidental regressions where someone re-introduces "Parler" in configs.
 
 use std::fs;
@@ -41,7 +41,7 @@ fn cargo_toml_content() -> &'static String {
 
 #[test]
 fn tauri_conf_product_name_is_phraser() {
-    assert_eq!(tauri_conf()["productName"].as_str().unwrap(), "Phraser");
+    assert_eq!(tauri_conf()["productName"].as_str().unwrap(), "phraser");
 }
 
 #[test]
@@ -55,7 +55,7 @@ fn tauri_conf_identifier_is_phraser() {
 #[test]
 fn tauri_conf_window_title_is_phraser() {
     let title = tauri_conf()["app"]["windows"][0]["title"].as_str().unwrap();
-    assert_eq!(title, "Phraser");
+    assert_eq!(title, "phraser");
 }
 
 #[test]
@@ -64,8 +64,8 @@ fn tauri_conf_updater_endpoint_uses_phraser() {
         .as_str()
         .unwrap();
     assert!(
-        endpoint.contains("/Phraser/"),
-        "Updater endpoint should reference Phraser repo, got: {}",
+        endpoint.contains("/phraser/"),
+        "Updater endpoint should reference phraser repo, got: {}",
         endpoint
     );
 }
@@ -74,7 +74,7 @@ fn tauri_conf_updater_endpoint_uses_phraser() {
 fn tauri_dev_conf_product_name_is_phraser_dev() {
     assert_eq!(
         tauri_dev_conf()["productName"].as_str().unwrap(),
-        "PhraserDev"
+        "phraserDev"
     );
 }
 
@@ -113,8 +113,8 @@ fn index_html_title_is_phraser() {
     let content =
         fs::read_to_string(project_root().join("index.html")).expect("Failed to read index.html");
     assert!(
-        content.contains("<title>Phraser</title>"),
-        "index.html title should be 'Phraser'"
+        content.contains("<title>phraser</title>"),
+        "index.html title should be 'phraser'"
     );
 }
 

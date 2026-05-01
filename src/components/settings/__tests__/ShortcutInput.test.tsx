@@ -12,8 +12,10 @@ const mockUseSettings = vi.mocked(useSettings);
 vi.mock("../GlobalShortcutInput", () => ({
   GlobalShortcutInput: () => <div data-testid="global-shortcut-input" />,
 }));
-vi.mock("../HandyKeysShortcutInput", () => ({
-  HandyKeysShortcutInput: () => <div data-testid="handy-keys-shortcut-input" />,
+vi.mock("../PhraserKeysShortcutInput", () => ({
+  PhraserKeysShortcutInput: () => (
+    <div data-testid="phraser-keys-shortcut-input" />
+  ),
 }));
 
 beforeEach(() => {
@@ -26,7 +28,7 @@ describe("ShortcutInput", () => {
     render(<ShortcutInput shortcutId="toggle_transcription" />);
     expect(screen.getByTestId("global-shortcut-input")).toBeInTheDocument();
     expect(
-      screen.queryByTestId("handy-keys-shortcut-input"),
+      screen.queryByTestId("phraser-keys-shortcut-input"),
     ).not.toBeInTheDocument();
   });
 
@@ -38,12 +40,14 @@ describe("ShortcutInput", () => {
     expect(screen.getByTestId("global-shortcut-input")).toBeInTheDocument();
   });
 
-  it("renders HandyKeysShortcutInput when keyboard_implementation is 'handy_keys'", () => {
+  it("renders PhraserKeysShortcutInput when keyboard_implementation is 'phraser_keys'", () => {
     mockUseSettings.mockReturnValue(
-      makeSettings({ keyboard_implementation: "handy_keys" } as any),
+      makeSettings({ keyboard_implementation: "phraser_keys" } as any),
     );
     render(<ShortcutInput shortcutId="toggle_transcription" />);
-    expect(screen.getByTestId("handy-keys-shortcut-input")).toBeInTheDocument();
+    expect(
+      screen.getByTestId("phraser-keys-shortcut-input"),
+    ).toBeInTheDocument();
     expect(
       screen.queryByTestId("global-shortcut-input"),
     ).not.toBeInTheDocument();

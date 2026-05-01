@@ -58,7 +58,7 @@ fn save_frontmost_app() {
         if !bundle_id.is_empty() {
             if is_phraser_bundle_id(&bundle_id) {
                 debug!(
-                    "Skipping frontmost app save because foreground app is Phraser: {}",
+                    "Skipping frontmost app save because foreground app is phraser: {}",
                     bundle_id
                 );
                 return;
@@ -73,7 +73,7 @@ fn save_frontmost_app() {
 
 /// Re-activate the previously frontmost application before pasting (macOS only).
 /// This ensures the paste keystroke targets the correct app, even if the overlay
-/// or transcription pipeline accidentally brought Phraser to the foreground.
+/// or transcription pipeline accidentally brought phraser to the foreground.
 #[cfg(target_os = "macos")]
 fn restore_frontmost_app() {
     let bundle_id = FRONTMOST_APP_BUNDLE_ID
@@ -84,7 +84,7 @@ fn restore_frontmost_app() {
     if let Some(bid) = bundle_id {
         if is_phraser_bundle_id(&bid) {
             debug!(
-                "Skipping frontmost app restore for Phraser bundle id: {}",
+                "Skipping frontmost app restore for phraser bundle id: {}",
                 bid
             );
             return;

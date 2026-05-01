@@ -126,7 +126,7 @@
 
 ### Added
 
-- **Initial release** of Handy
+- **Initial release** of phraser
 - Basic speech-to-text transcription functionality
 - Voice Activity Detection (VAD) for automatic recording
 - Cross-platform support (macOS, Windows, Linux)
@@ -154,3 +154,4 @@
 - Real-time transcription with performance optimizations
 - Cross-platform keyboard event handling
 - Modular architecture with managers for audio, models, and transcription
+- 2026-05-01: feat: phraser rebrand — replace all Handy icons/logos with new waveform design, rename code references, update i18n, bump to v0.8.0

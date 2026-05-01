@@ -1,7 +1,7 @@
 use clap::Parser;
 
 #[derive(Parser, Debug, Clone, Default)]
-#[command(name = "phraser", about = "Phraser - Speech to Text")]
+#[command(name = "phraser", about = "phraser - Speech to Text")]
 pub struct CliArgs {
     /// Start with the main window hidden
     #[arg(long)]
@@ -44,8 +44,8 @@ mod tests {
         let cmd = CliArgs::command();
         let about = cmd.get_about().map(|a| a.to_string()).unwrap_or_default();
         assert!(
-            about.contains("Phraser"),
-            "CLI about text should contain 'Phraser', got: {}",
+            about.contains("phraser"),
+            "CLI about text should contain 'phraser', got: {}",
             about
         );
     }

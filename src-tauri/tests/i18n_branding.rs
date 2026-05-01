@@ -1,4 +1,4 @@
-//! Tests that verify "Parler" has been fully replaced with "Phraser" in all i18n files.
+//! Tests that verify "Parler" has been fully replaced with "phraser" in all i18n files.
 //! The only allowed exception is the French word "parler" (lowercase, meaning "to speak").
 
 use std::fs;
@@ -53,8 +53,8 @@ fn phraser_present_in_english_translation() {
     let content = fs::read_to_string(locales_dir().join("en/translation.json"))
         .expect("Failed to read English translation");
     assert!(
-        content.contains("Phraser"),
-        "English translation should contain 'Phraser'"
+        content.contains("phraser"),
+        "English translation should contain 'phraser'"
     );
 }
 

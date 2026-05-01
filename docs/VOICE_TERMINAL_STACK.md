@@ -32,7 +32,7 @@ and interact with Claude Code — all by voice, all offline.
              ▲
              │ voice paste (system-level)
              │
-        [ Phraser ]  ← Whisper (offline STT)
+        [ phraser ]  ← Whisper (offline STT)
              │
         [ Ollama  ]  ← Local LLM (complex queries only)
 ```
@@ -49,14 +49,14 @@ and interact with Claude Code — all by voice, all offline.
 | [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI                        | raw `git` commands   |
 | [Claude Code](https://claude.ai/code)               | AI coding agent                | —                    |
 | [zoxide](https://github.com/ajeetdsouza/zoxide)     | Smart `cd` with memory         | `cd`                 |
-| [Phraser](https://github.com/celstnblacc/Phraser)   | Voice → text (offline Whisper) | —                    |
+| [phraser](https://github.com/celstnblacc/phraser)   | Voice → text (offline Whisper) | —                    |
 | [Ollama](https://ollama.com/)                       | Local LLM for NL→bash          | cloud LLMs           |
 
 ---
 
 ## Voice Layer Architecture
 
-Phraser runs at the system level and pastes into whichever Ghostty pane is focused.
+phraser runs at the system level and pastes into whichever Ghostty pane is focused.
 Three action keys handle the three main use cases:
 
 ```
@@ -134,9 +134,9 @@ Or add alias to `~/.zshrc`:
 alias dev="zellij --layout dev"
 ```
 
-### Phase 3 — Phraser action keys ✅
+### Phase 3 — phraser action keys ✅
 
-Configure in Phraser **Settings → Post-Processing → Actions**:
+Configure in phraser **Settings → Post-Processing → Actions**:
 
 All three actions use the Custom provider (Ollama) at `http://localhost:11434/v1` with `qwen2.5:0.5b`.
 
@@ -253,7 +253,7 @@ Now `y` opens Yazi and when you quit, your shell follows to the last dir you bro
 | Yazi        | Yes — local app                           |
 | lazygit     | Yes — local app                           |
 | zoxide      | Yes — local db in `~/.local/share/zoxide` |
-| Phraser     | Yes — Whisper runs on-device              |
+| phraser     | Yes — Whisper runs on-device              |
 | Ollama      | Yes — model runs on-device                |
 | Claude Code | **No** — sends code to Anthropic API      |
 

@@ -12,7 +12,7 @@ function isTauriRuntimeError(msg: string): boolean {
   );
 }
 
-test.describe("Phraser App — Smoke", () => {
+test.describe("phraser App — Smoke", () => {
   test("dev server responds with 200", async ({ page }) => {
     const response = await page.goto("/");
     expect(response?.status()).toBe(200);
@@ -26,13 +26,13 @@ test.describe("Phraser App — Smoke", () => {
     expect(html).toContain('<div id="root"');
   });
 
-  test("page title is Phraser", async ({ page }) => {
+  test("page title is phraser", async ({ page }) => {
     await page.goto("/");
-    await expect(page).toHaveTitle("Phraser");
+    await expect(page).toHaveTitle("phraser");
   });
 });
 
-test.describe("Phraser App — Branding", () => {
+test.describe("phraser App — Branding", () => {
   test("no stale Parler references in page source", async ({ page }) => {
     await page.goto("/");
     const html = await page.content();
@@ -41,7 +41,7 @@ test.describe("Phraser App — Branding", () => {
   });
 });
 
-test.describe("Phraser App — Frontend Rendering", () => {
+test.describe("phraser App — Frontend Rendering", () => {
   test("root element exists", async ({ page }) => {
     await page.goto("/");
     const root = page.locator("#root");
@@ -109,7 +109,7 @@ test.describe("Phraser App — Frontend Rendering", () => {
   });
 });
 
-test.describe("Phraser App — i18n", () => {
+test.describe("phraser App — i18n", () => {
   test("page language attribute is set", async ({ page }) => {
     await page.goto("/");
     await page.waitForTimeout(500);

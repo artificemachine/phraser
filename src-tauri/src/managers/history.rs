@@ -216,7 +216,7 @@ impl HistoryManager {
         post_process_action_key: Option<u8>,
     ) -> Result<()> {
         let timestamp = Utc::now().timestamp();
-        let file_name = format!("handy-{}.wav", timestamp);
+        let file_name = format!("phraser-{}.wav", timestamp);
         let title = self.format_timestamp_title(timestamp);
 
         // Save WAV file
@@ -589,7 +589,7 @@ mod tests {
             "INSERT INTO transcription_history (file_name, timestamp, saved, title, transcription_text, post_processed_text, post_process_prompt, post_process_action_key)
              VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)",
             params![
-                format!("handy-{}.wav", timestamp),
+                format!("phraser-{}.wav", timestamp),
                 timestamp,
                 false,
                 format!("Recording {}", timestamp),
@@ -626,7 +626,7 @@ mod tests {
 
     #[test]
     fn validate_audio_file_name_accepts_normal_name() {
-        assert!(is_valid_audio_file_name("handy-123.wav"));
+        assert!(is_valid_audio_file_name("phraser-123.wav"));
     }
 
     #[test]
@@ -649,8 +649,8 @@ mod tests {
     #[test]
     fn get_audio_file_path_from_dir_returns_joined_path_for_valid_filename() {
         let base = std::path::Path::new("/tmp/recordings");
-        let path = get_audio_file_path_from_dir(base, "handy-123.wav").expect("valid path");
-        assert_eq!(path, base.join("handy-123.wav"));
+        let path = get_audio_file_path_from_dir(base, "phraser-123.wav").expect("valid path");
+        assert_eq!(path, base.join("phraser-123.wav"));
     }
 
     #[test]

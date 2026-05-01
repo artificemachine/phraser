@@ -6,8 +6,8 @@ use serde_json::Value;
 use std::time::Duration;
 
 const REQUEST_TIMEOUT_SECS: u64 = 30;
-const PHRASER_USER_AGENT: &str = "Phraser/1.0 (+https://github.com/newblacc/Phraser)";
-const PHRASER_REFERER: &str = "https://github.com/newblacc/Phraser";
+const PHRASER_USER_AGENT: &str = "phraser/1.0 (+https://github.com/newblacc/phraser)";
+const PHRASER_REFERER: &str = "https://github.com/newblacc/phraser";
 const ANTHROPIC_API_VERSION: &str = "2023-06-01";
 
 #[derive(Debug, Serialize)]
@@ -60,7 +60,7 @@ fn build_headers(provider: &PostProcessProvider, api_key: &str) -> Result<Header
     headers.insert(CONTENT_TYPE, HeaderValue::from_static("application/json"));
     headers.insert(REFERER, HeaderValue::from_static(PHRASER_REFERER));
     headers.insert(USER_AGENT, HeaderValue::from_static(PHRASER_USER_AGENT));
-    headers.insert("X-Title", HeaderValue::from_static("Phraser"));
+    headers.insert("X-Title", HeaderValue::from_static("phraser"));
 
     // Provider-specific auth headers
     if !api_key.is_empty() {

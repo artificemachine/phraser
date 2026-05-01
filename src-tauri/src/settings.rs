@@ -212,15 +212,15 @@ pub enum RecordingRetentionPeriod {
 #[serde(rename_all = "snake_case")]
 pub enum KeyboardImplementation {
     Tauri,
-    HandyKeys,
+    PhraserKeys,
 }
 
 impl Default for KeyboardImplementation {
     fn default() -> Self {
-        // Default to HandyKeys only on macOS where it's well-tested.
-        // Windows and Linux use Tauri by default (handy-keys not sufficiently tested yet).
+        // Default to PhraserKeys only on macOS where it's well-tested.
+        // Windows and Linux use Tauri by default (phraser-keys not sufficiently tested yet).
         #[cfg(target_os = "macos")]
-        return KeyboardImplementation::HandyKeys;
+        return KeyboardImplementation::PhraserKeys;
         #[cfg(not(target_os = "macos"))]
         return KeyboardImplementation::Tauri;
     }

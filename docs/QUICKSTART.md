@@ -1,4 +1,4 @@
-# Phraser — Quick Start
+# phraser — Quick Start
 
 Get from zero to a running voice terminal.
 
@@ -28,8 +28,8 @@ npm install -g @anthropic-ai/claude-code
 ## 1. Clone & install dependencies
 
 ```bash
-git clone https://github.com/celstnblacc/Phraser.git
-cd Phraser
+git clone https://github.com/celstnblacc/phraser.git
+cd phraser
 bun install
 ```
 
@@ -60,15 +60,15 @@ CMAKE_POLICY_VERSION_MINIMUM=3.5 bun run tauri dev
 
 ```bash
 bun run app:create
-# Output: src-tauri/target/release/bundle/macos/Phraser.app
-open src-tauri/target/release/bundle/macos/Phraser.app
+# Output: src-tauri/target/release/bundle/macos/phraser.app
+open src-tauri/target/release/bundle/macos/phraser.app
 ```
 
 ---
 
 ## 4. First launch checklist
 
-When Phraser opens for the first time:
+When phraser opens for the first time:
 
 - [ ] Grant **microphone** permission when prompted
 - [ ] Grant **accessibility** permission (System Settings → Privacy → Accessibility)
