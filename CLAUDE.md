@@ -15,14 +15,28 @@ bun run tauri dev
 # If cmake error on macOS:
 CMAKE_POLICY_VERSION_MINIMUM=3.5 bun run tauri dev
 
+# Run with phraserdev config (separate app identity for dev)
+bun run tauri:dev:phraserdev
+
 # Build for production
 bun run tauri build
+bun run tauri:build:phraserdev   # Build with phraserdev config
+bun run app:create               # Full app bundle via scripts/build-app.sh
 
 # Linting and formatting (run before committing)
 bun run lint              # ESLint for frontend
 bun run lint:fix          # ESLint with auto-fix
-bun run format            # Prettier + cargo fmt
+bun run format            # Prettier + cargo fmt (both)
+bun run format:frontend   # Prettier only
+bun run format:backend    # cargo fmt only
 bun run format:check      # Check formatting without changes
+
+# Testing
+bun run test:unit             # Vitest unit tests (run once)
+bun run test:unit:watch       # Vitest in watch mode
+bun run test:playwright       # Playwright e2e tests
+bun run test:playwright:ui    # Playwright with interactive UI
+bun run check:translations    # Verify i18n translation coverage
 ```
 
 **Model Setup (Required for Development):**
@@ -39,6 +53,7 @@ phraser is a cross-platform desktop speech-to-text app built with Tauri 2.x (Rus
 ### Backend Structure (src-tauri/src/)
 
 - `lib.rs` - Main entry point, Tauri setup, manager initialization
+- `main.rs` - CLI argument parsing before Tauri launch
 - `managers/` - Core business logic:
   - `audio.rs` - Audio recording and device management
   - `model.rs` - Model downloading and management
@@ -48,8 +63,23 @@ phraser is a cross-platform desktop speech-to-text app built with Tauri 2.x (Rus
   - `audio/` - Device enumeration, recording, resampling
   - `vad/` - Voice Activity Detection (Silero VAD)
 - `commands/` - Tauri command handlers for frontend communication
-- `shortcut.rs` - Global keyboard shortcut handling
+- `shortcut/` - Global keyboard shortcut handling
 - `settings.rs` - Application settings management
+- `cli.rs` - CLI argument definitions (clap derive)
+- `signal_handle.rs` - `send_transcription_input()` reusable function
+- `actions.rs` - Action dispatch logic
+- `apple_intelligence.rs` - macOS Apple Intelligence integration
+- `audio_feedback.rs` - Audio feedback / sound cues
+- `clipboard.rs` - Clipboard write helpers
+- `gemini_client.rs` - Gemini LLM client integration
+- `llm_client.rs` - Generic LLM client abstraction
+- `input.rs` - Input event handling
+- `overlay.rs` - Recording overlay window logic
+- `transcription_coordinator.rs` - Coordinates VAD + transcription pipeline
+- `tray.rs` - System tray icon and menu
+- `tray_i18n.rs` - i18n support for tray menu items
+- `utils.rs` - Shared utility functions
+- `helpers/` - Shared helper modules
 
 ### Frontend Structure (src/)
 
@@ -157,3 +187,22 @@ Access debug features: `Cmd+Shift+D` (macOS) or `Ctrl+Shift+D` (Windows/Linux)
 - **macOS**: Metal acceleration, accessibility permissions required
 - **Windows**: Vulkan acceleration, code signing
 - **Linux**: OpenBLAS + Vulkan, limited Wayland support, overlay disabled by default
+
+## Strict Installation Decoupling
+
+Once installed (e.g., to ~/.local/bin), the project binary must NEVER depend on the local repository path for execution, configuration, or data. All paths must be relative to the installation root or use standard system config paths (~/.config).
+
+## Fork Identity
+
+phraser is a personal fork of [Melvynx/Parler](https://github.com/Melvynx/Parler) (itself a fork of [cjpais/Handy](https://github.com/cjpais/Handy)). Custom additions over upstream include: conditional model switching by duration, security dependency hardening, stronger history-path validation, project quality gate hooks, branding refresh, and Claude Desktop workflow defaults.
+
+When syncing upstream changes, check the fork-specific files and README "Custom Additions" section to avoid overwriting local features.
+
+## Guardrails
+
+- Never commit `.env`, secrets, credentials, or model `.onnx` files — the VAD model is fetched at dev setup time, not committed.
+- Never push directly to `main` — always use a feature branch and open a PR.
+- Run `bun run lint`, `bun run format:check`, and `bun run test:unit` before committing (enforced by `.project-hooks/pre-commit`).
+- Never hardcode file paths — use Tauri path APIs or `$HOME`-relative paths.
+- CHANGELOG.md is append-only — never edit or reorder existing entries.
+- All user-facing strings must go through i18next — ESLint enforces this.
