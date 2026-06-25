@@ -112,3 +112,7 @@ Settings are stored using Tauri's store plugin with reactive updates:
 ### Single Instance Architecture
 
 The app enforces single instance behavior - launching when already running brings the settings window to front rather than creating a new process.
+
+## Strict Installation Decoupling
+
+Once installed (e.g., to ~/.local/bin), the project binary must NEVER depend on the local repository path for execution, configuration, or data. All paths must be relative to the installation root or use standard system config paths (~/.config).
