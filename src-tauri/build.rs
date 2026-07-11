@@ -140,10 +140,33 @@ fn build_apple_intelligence_bridge() {
     .trim()
     .to_string();
 
-    // Check if the SDK supports FoundationModels (required for Apple Intelligence)
+    let swiftc_path = String::from_utf8(
+        Command::new("xcrun")
+            .args(["--find", "swiftc"])
+            .output()
+            .expect("Failed to locate swiftc")
+            .stdout,
+    )
+    .expect("swiftc path is not valid UTF-8")
+    .trim()
+    .to_string();
+
+    let toolchain_usr_dir = Path::new(&swiftc_path)
+        .parent()
+        .and_then(|p| p.parent())
+        .expect("Unable to determine Swift toolchain usr directory");
+
+    // Check if the SDK ships the FoundationModels framework AND the active toolchain
+    // has the FoundationModelsMacros compiler plugin. Command Line Tools installs
+    // carry the SDK's framework headers but not the macro plugin dylib (that only
+    // ships inside Xcode.app), so checking the framework alone is a false positive
+    // that picks the real source file and then fails at compile time with a missing
+    // macro implementation error.
     let framework_path =
         Path::new(&sdk_path).join("System/Library/Frameworks/FoundationModels.framework");
-    let has_foundation_models = framework_path.exists();
+    let macro_plugin_path =
+        toolchain_usr_dir.join("lib/swift/host/plugins/libFoundationModelsMacros.dylib");
+    let has_foundation_models = framework_path.exists() && macro_plugin_path.exists();
 
     let source_file = if has_foundation_models {
         println!("cargo:warning=Building with Apple Intelligence support.");
@@ -157,22 +180,7 @@ fn build_apple_intelligence_bridge() {
         panic!("Source file {} is missing!", source_file);
     }
 
-    let swiftc_path = String::from_utf8(
-        Command::new("xcrun")
-            .args(["--find", "swiftc"])
-            .output()
-            .expect("Failed to locate swiftc")
-            .stdout,
-    )
-    .expect("swiftc path is not valid UTF-8")
-    .trim()
-    .to_string();
-
-    let toolchain_swift_lib = Path::new(&swiftc_path)
-        .parent()
-        .and_then(|p| p.parent())
-        .map(|root| root.join("lib/swift/macosx"))
-        .expect("Unable to determine Swift toolchain lib directory");
+    let toolchain_swift_lib = toolchain_usr_dir.join("lib/swift/macosx");
     let sdk_swift_lib = Path::new(&sdk_path).join("usr/lib/swift");
 
     // Use macOS 11.0 as deployment target for compatibility

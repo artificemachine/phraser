@@ -35,10 +35,17 @@ jobs:
     continue-on-error: true
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # gitleaks-action@v2 requires a paid GITLEAKS_LICENSE for org accounts.
+      # Run the open-source gitleaks CLI directly instead — no license needed.
+      - name: Install gitleaks
+        run: |
+          curl -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz \
+            | tar -xz gitleaks
+          sudo mv gitleaks /usr/local/bin/
       - name: Gitleaks
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gitleaks detect --source . -v --redact
 
   layer3-sast:
     name: L3 SAST
@@ -50,6 +57,10 @@ jobs:
         with:
           bun-version: latest
       - uses: dtolnay/rust-toolchain@stable
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev libasound2-dev libssl-dev libgtk-layer-shell-dev
       - name: Install frontend deps
         run: bun install --frozen-lockfile
       - name: Frontend lint

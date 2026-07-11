@@ -75,6 +75,10 @@
       "sense-voice-int8": {
         "name": "SenseVoice",
         "description": "Molto veloce. Cinese, inglese, giapponese, coreano, cantonese."
+      },
+      "gemini-api": {
+        "name": "Gemini API",
+        "description": "Trascrizione basata su cloud tramite Google Gemini. Richiede una chiave API e la connessione a internet."
       }
     },
     "errors": {
@@ -153,7 +157,27 @@
       },
       "noModelsMatch": "Nessun modello corrisponde a questo filtro.",
       "yourModels": "Modelli scaricati",
-      "availableModels": "Disponibili per il download"
+      "availableModels": "Disponibili per il download",
+      "tabs": {
+        "transcription": "Trascrizione",
+        "processing": "Elaborazione"
+      },
+      "processingModels": {
+        "title": "Modelli di Elaborazione",
+        "description": "Salva i modelli LLM da usare nelle azioni di post-elaborazione.",
+        "noModels": "Nessun modello di elaborazione salvato. Aggiungine uno da usare nelle tue azioni.",
+        "addModel": "Aggiungi Modello di Elaborazione",
+        "provider": "Provider",
+        "baseUrl": "URL del Server",
+        "apiKey": "Chiave API",
+        "apiKeyPlaceholder": "Inserisci la chiave API",
+        "model": "Modello",
+        "modelPlaceholder": "Seleziona o digita un modello",
+        "fetchModels": "Recupera modelli",
+        "alreadySaved": "Questo modello è già stato salvato.",
+        "save": "Salva",
+        "cancel": "Annulla"
+      }
     },
     "general": {
       "title": "Generale",
@@ -227,7 +251,8 @@
         "output": "Output",
         "transcription": "Trascrizione",
         "history": "Cronologia",
-        "experimental": "Sperimentale"
+        "experimental": "Sperimentale",
+        "cloudModels": "Modelli Cloud"
       },
       "audioFormat": {
         "title": "Formato di registrazione",
@@ -385,6 +410,29 @@
         "cancel": "Annulla",
         "selectToEdit": "Scegli un prompt qui sopra per visualizzare o modificare i dettagli.",
         "createFirst": "Clicca 'Crea un nuovo prompt' qui sopra per creare il tuo primo prompt di post-elaborazione."
+      },
+      "actions": {
+        "title": "Azioni",
+        "description": "Associa i tasti Ctrl+numero (1-9) a prompt personalizzati. Premi una scorciatoia durante la registrazione per applicare l'azione dopo la trascrizione.",
+        "noActions": "Nessuna azione configurata.",
+        "createFirst": "Crea la tua prima azione per elaborare le trascrizioni con il tuo provider configurato.",
+        "addAction": "Aggiungi Azione",
+        "editAction": "Modifica Azione",
+        "key": "Tasto",
+        "keyLabel": "Tasto (1-9)",
+        "name": "Nome",
+        "namePlaceholder": "es. Modalità email",
+        "prompt": "Prompt",
+        "promptPlaceholder": "es. Formatta questo come un'email professionale con saluto e formula di chiusura. Aggiungi interruzioni di riga tra i paragrafi.",
+        "promptTip": "Suggerimento: Usa <code>${output}</code> per inserire il testo trascritto nel tuo prompt.",
+        "model": "Modello (opzionale)",
+        "modelPlaceholder": "Seleziona un modello",
+        "modelTip": "Seleziona un modello specifico per questa azione, oppure usa quello predefinito dalla sezione API.",
+        "defaultModel": "Default",
+        "maxActionsReached": "Numero massimo di 9 azioni raggiunto.",
+        "save": "Salva",
+        "cancel": "Annulla",
+        "delete": "Elimina"
       }
     },
     "history": {
@@ -396,7 +444,13 @@
       "save": "Salva la trascrizione",
       "unsave": "Rimuovi dai salvataggi",
       "delete": "Elimina elemento",
-      "deleteError": "Errore nell'eliminazione dell'elemento. Per favore, prova di nuovo."
+      "deleteError": "Errore nell'eliminazione dell'elemento. Per favore, prova di nuovo.",
+      "reprocess": "Rielabora con un modello diverso",
+      "reprocessing": "Rielaborazione in corso...",
+      "selectModel": "Seleziona modello",
+      "originalTranscript": "Originale",
+      "postProcessed": "Post-elaborato",
+      "action": "Azione {{key}}"
     },
     "debug": {
       "title": "Debug",
@@ -469,6 +523,28 @@
         "title": "Ritardo incolla",
         "description": "Ritardo prima dell'invio del tasto incolla (in millisecondi). Aumentare se viene incollato il testo sbagliato."
       }
+    },
+    "gemini": {
+      "title": "Gemini API",
+      "description": "Usa l'API Gemini di Google per la trascrizione basata su cloud. Richiede una chiave API.",
+      "apiKey": "Chiave API",
+      "apiKeyPlaceholder": "Inserisci la tua chiave API Gemini",
+      "model": "Modello",
+      "modelDescription": "Seleziona quale modello Gemini utilizzare per la trascrizione",
+      "apiKeyRequired": "Chiave API Richiesta",
+      "apiKeyRequiredDescription": "Inserisci la tua chiave API di Google Gemini per usare la trascrizione cloud.",
+      "save": "Salva",
+      "cancel": "Annulla"
+    },
+    "longAudioModel": {
+      "title": "Modello per Audio Lunghi",
+      "description": "Passa automaticamente a un modello diverso quando la durata della registrazione supera la soglia.",
+      "disabled": "Disabilitato",
+      "modelLabel": "Modello per registrazioni lunghe",
+      "modelDescription": "Seleziona un modello da usare per le registrazioni più lunghe della soglia.",
+      "thresholdLabel": "Soglia di durata (secondi)",
+      "thresholdDescription": "Passa al modello per audio lunghi quando la registrazione supera questa durata.",
+      "seconds": "{{value}}s"
     },
     "about": {
       "title": "Informazioni",

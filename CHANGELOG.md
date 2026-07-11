@@ -157,6 +157,10 @@
 - 2026-05-01: feat: phraser rebrand — replace all Handy icons/logos with new waveform design, rename code references, update i18n, bump to v0.8.0
 - 2026-05-01: feat: MP3 recording output format, AudioFormat setting with WAV/MP3 toggle (v0.9.0)
 - 2026-05-01: fix: add audioFormat i18n translations to all 16 locales
+- 2026-07-11: fix: correct Apple Intelligence SDK detection in build.rs to also check for the FoundationModelsMacros compiler plugin, not just the framework directory — Command Line Tools installs have the framework but not the macro plugin, which was silently picking the real Swift source and failing to compile
+- 2026-07-11: fix: replace gitleaks-action@v2 (requires paid org license) with the open-source gitleaks CLI in CI; install missing glib-2.0/webkit2gtk system deps for the L3 SAST clippy job on Ubuntu
+- 2026-07-11: fix: backfill 64 missing i18n keys (Gemini API, long audio model, processing models, post-processing actions) across ar/cs/de/es/fr/it/ja/ko/pl/pt/ru/tr/vi locales
+- 2026-07-11: chore: bump version to 0.9.2
 
 - 2026-06-25: chore: remove personal workspace path from tracked files
 - 2026-07-11: fix: update stale celstnblacc GitHub references to artificemachine (docs, about page, releasing guide)

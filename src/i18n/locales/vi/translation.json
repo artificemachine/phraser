@@ -75,6 +75,10 @@
       "sense-voice-int8": {
         "name": "SenseVoice",
         "description": "Rất nhanh. Tiếng Trung, tiếng Anh, tiếng Nhật, tiếng Hàn, tiếng Quảng Đông."
+      },
+      "gemini-api": {
+        "name": "Gemini API",
+        "description": "Chuyển đổi giọng nói qua đám mây bằng Google Gemini. Cần khóa API và kết nối internet."
       }
     },
     "errors": {
@@ -153,7 +157,27 @@
       },
       "noModelsMatch": "Không có mô hình nào khớp với bộ lọc này.",
       "yourModels": "Mô hình đã tải",
-      "availableModels": "Có sẵn để tải xuống"
+      "availableModels": "Có sẵn để tải xuống",
+      "tabs": {
+        "transcription": "Chuyển đổi",
+        "processing": "Xử lý"
+      },
+      "processingModels": {
+        "title": "Mô hình xử lý",
+        "description": "Lưu các mô hình LLM để sử dụng trong các hành động xử lý sau.",
+        "noModels": "Chưa có mô hình xử lý nào được lưu. Thêm một mô hình để sử dụng trong các hành động của bạn.",
+        "addModel": "Thêm mô hình xử lý",
+        "provider": "Nhà cung cấp",
+        "baseUrl": "URL máy chủ",
+        "apiKey": "Khóa API",
+        "apiKeyPlaceholder": "Nhập khóa API",
+        "model": "Mô hình",
+        "modelPlaceholder": "Chọn hoặc nhập tên mô hình",
+        "fetchModels": "Lấy danh sách mô hình",
+        "alreadySaved": "Mô hình này đã được lưu.",
+        "save": "Lưu",
+        "cancel": "Hủy"
+      }
     },
     "general": {
       "title": "Chung",
@@ -227,7 +251,8 @@
         "output": "Đầu ra",
         "transcription": "Chuyển đổi",
         "history": "Lịch sử",
-        "experimental": "Thử nghiệm"
+        "experimental": "Thử nghiệm",
+        "cloudModels": "Mô hình đám mây"
       },
       "audioFormat": {
         "title": "Định dạng ghi âm",
@@ -327,6 +352,28 @@
         "duplicate": "\"{{word}}\" đã tồn tại"
       }
     },
+    "gemini": {
+      "title": "Gemini API",
+      "description": "Sử dụng Gemini API của Google để chuyển đổi giọng nói qua đám mây. Cần có khóa API.",
+      "apiKey": "Khóa API",
+      "apiKeyPlaceholder": "Nhập khóa API Gemini của bạn",
+      "model": "Mô hình",
+      "modelDescription": "Chọn mô hình Gemini để sử dụng cho việc chuyển đổi",
+      "apiKeyRequired": "Cần có khóa API",
+      "apiKeyRequiredDescription": "Nhập khóa API Google Gemini của bạn để sử dụng chuyển đổi qua đám mây.",
+      "save": "Lưu",
+      "cancel": "Hủy"
+    },
+    "longAudioModel": {
+      "title": "Mô hình cho bản ghi dài",
+      "description": "Tự động chuyển sang mô hình khác khi thời lượng ghi âm vượt quá ngưỡng.",
+      "disabled": "Đã tắt",
+      "modelLabel": "Mô hình cho bản ghi dài",
+      "modelDescription": "Chọn mô hình để sử dụng cho các bản ghi dài hơn ngưỡng quy định.",
+      "thresholdLabel": "Ngưỡng thời lượng (giây)",
+      "thresholdDescription": "Chuyển sang mô hình cho bản ghi dài khi thời gian ghi âm vượt quá thời lượng này.",
+      "seconds": "{{value}} giây"
+    },
     "postProcessing": {
       "title": "Xử lý sau",
       "hotkey": {
@@ -385,6 +432,29 @@
         "cancel": "Hủy",
         "selectToEdit": "Chọn một prompt ở trên để xem và chỉnh sửa chi tiết.",
         "createFirst": "Nhấn 'Tạo Prompt mới' ở trên để tạo prompt xử lý sau đầu tiên của bạn."
+      },
+      "actions": {
+        "title": "Hành động",
+        "description": "Gán các phím Ctrl+số (1-9) cho các prompt tùy chỉnh. Nhấn phím tắt trong khi ghi âm để áp dụng hành động sau khi chuyển đổi.",
+        "noActions": "Chưa có hành động nào được cấu hình.",
+        "createFirst": "Tạo hành động đầu tiên của bạn để xử lý các bản chuyển đổi bằng nhà cung cấp đã cấu hình.",
+        "addAction": "Thêm hành động",
+        "editAction": "Chỉnh sửa hành động",
+        "key": "Phím",
+        "keyLabel": "Phím (1-9)",
+        "name": "Tên",
+        "namePlaceholder": "vd: Chế độ email",
+        "prompt": "Prompt",
+        "promptPlaceholder": "vd: Định dạng nội dung này thành một email chuyên nghiệp có lời chào và lời kết. Thêm ngắt dòng giữa các đoạn văn.",
+        "promptTip": "Mẹo: Sử dụng <code>${output}</code> để chèn văn bản đã chuyển đổi vào prompt của bạn.",
+        "model": "Mô hình (tùy chọn)",
+        "modelPlaceholder": "Chọn một mô hình",
+        "modelTip": "Chọn một mô hình cụ thể cho hành động này, hoặc sử dụng mô hình mặc định từ phần API.",
+        "defaultModel": "Mặc định",
+        "maxActionsReached": "Đã đạt tối đa 9 hành động.",
+        "save": "Lưu",
+        "cancel": "Hủy",
+        "delete": "Xóa"
       }
     },
     "history": {
@@ -396,7 +466,13 @@
       "save": "Lưu bản ghi",
       "unsave": "Xóa khỏi đã lưu",
       "delete": "Xóa mục",
-      "deleteError": "Không thể xóa mục. Vui lòng thử lại."
+      "deleteError": "Không thể xóa mục. Vui lòng thử lại.",
+      "reprocess": "Xử lý lại với mô hình khác",
+      "reprocessing": "Đang xử lý lại...",
+      "selectModel": "Chọn mô hình",
+      "originalTranscript": "Bản gốc",
+      "postProcessed": "Đã xử lý sau",
+      "action": "Hành động {{key}}"
     },
     "debug": {
       "title": "Gỡ lỗi",

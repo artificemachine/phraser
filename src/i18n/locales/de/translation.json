@@ -75,6 +75,10 @@
       "sense-voice-int8": {
         "name": "SenseVoice",
         "description": "Sehr schnell. Chinesisch, Englisch, Japanisch, Koreanisch, Kantonesisch."
+      },
+      "gemini-api": {
+        "name": "Gemini API",
+        "description": "Cloud-basierte Transkription über Google Gemini. Erfordert API-Schlüssel und Internetverbindung."
       }
     },
     "errors": {
@@ -153,7 +157,49 @@
       },
       "noModelsMatch": "Keine Modelle entsprechen diesem Filter.",
       "yourModels": "Heruntergeladene Modelle",
-      "availableModels": "Zum Download verfügbar"
+      "availableModels": "Zum Download verfügbar",
+      "tabs": {
+        "transcription": "Transkription",
+        "processing": "Verarbeitung"
+      },
+      "processingModels": {
+        "title": "Verarbeitungsmodelle",
+        "description": "Speichere LLM-Modelle zur Verwendung in Nachbearbeitungsaktionen.",
+        "noModels": "Noch keine Verarbeitungsmodelle gespeichert. Füge eines hinzu, um es in deinen Aktionen zu verwenden.",
+        "addModel": "Verarbeitungsmodell hinzufügen",
+        "provider": "Anbieter",
+        "baseUrl": "Server-URL",
+        "apiKey": "API-Schlüssel",
+        "apiKeyPlaceholder": "API-Schlüssel eingeben",
+        "model": "Modell",
+        "modelPlaceholder": "Modell auswählen oder eingeben",
+        "fetchModels": "Modelle abrufen",
+        "alreadySaved": "Dieses Modell ist bereits gespeichert.",
+        "save": "Speichern",
+        "cancel": "Abbrechen"
+      }
+    },
+    "gemini": {
+      "title": "Gemini API",
+      "description": "Verwende Googles Gemini API für cloud-basierte Transkription. Erfordert einen API-Schlüssel.",
+      "apiKey": "API-Schlüssel",
+      "apiKeyPlaceholder": "Gib deinen Gemini-API-Schlüssel ein",
+      "model": "Modell",
+      "modelDescription": "Wähle, welches Gemini-Modell für die Transkription verwendet werden soll",
+      "apiKeyRequired": "API-Schlüssel erforderlich",
+      "apiKeyRequiredDescription": "Gib deinen Google-Gemini-API-Schlüssel ein, um Cloud-Transkription zu nutzen.",
+      "save": "Speichern",
+      "cancel": "Abbrechen"
+    },
+    "longAudioModel": {
+      "title": "Modell für lange Aufnahmen",
+      "description": "Wechselt automatisch zu einem anderen Modell, wenn die Aufnahmedauer den Schwellenwert überschreitet.",
+      "modelLabel": "Modell für lange Aufnahmen",
+      "modelDescription": "Wähle ein Modell für Aufnahmen, die länger als der Schwellenwert sind.",
+      "thresholdLabel": "Dauer-Schwellenwert (Sekunden)",
+      "thresholdDescription": "Wechselt zum Modell für lange Aufnahmen, wenn die Aufnahme diese Dauer überschreitet.",
+      "seconds": "{{value}}s",
+      "disabled": "Deaktiviert"
     },
     "general": {
       "title": "Allgemein",
@@ -227,7 +273,8 @@
         "output": "Ausgabe",
         "transcription": "Transkription",
         "history": "Verlauf",
-        "experimental": "Experimentell"
+        "experimental": "Experimentell",
+        "cloudModels": "Cloud-Modelle"
       },
       "audioFormat": {
         "title": "Aufnahmeformat",
@@ -385,6 +432,29 @@
         "cancel": "Abbrechen",
         "selectToEdit": "Wähle oben einen Prompt aus, um dessen Details anzuzeigen und zu bearbeiten.",
         "createFirst": "Klicke oben auf 'Neuen Prompt erstellen', um deinen ersten Nachbearbeitungs-Prompt zu erstellen."
+      },
+      "actions": {
+        "title": "Aktionen",
+        "description": "Verknüpfe Strg+Zahl-Tasten (1-9) mit benutzerdefinierten Prompts. Drücke während der Aufnahme ein Tastenkürzel, um die Aktion nach der Transkription anzuwenden.",
+        "noActions": "Noch keine Aktionen konfiguriert.",
+        "createFirst": "Erstelle deine erste Aktion, um Transkriptionen mit deinem konfigurierten Anbieter zu verarbeiten.",
+        "addAction": "Aktion hinzufügen",
+        "editAction": "Aktion bearbeiten",
+        "key": "Taste",
+        "keyLabel": "Taste (1-9)",
+        "name": "Name",
+        "namePlaceholder": "z. B. E-Mail-Modus",
+        "prompt": "Prompt",
+        "promptPlaceholder": "z. B. Formatiere dies als professionelle E-Mail mit Anrede und Grußformel. Füge Zeilenumbrüche zwischen den Absätzen ein.",
+        "promptTip": "Tipp: Verwende <code>${output}</code>, um den transkribierten Text in deinen Prompt einzufügen.",
+        "model": "Modell (optional)",
+        "modelPlaceholder": "Modell auswählen",
+        "modelTip": "Wähle ein bestimmtes Modell für diese Aktion, oder verwende das Standardmodell aus dem API-Bereich.",
+        "defaultModel": "Standard",
+        "maxActionsReached": "Maximum von 9 Aktionen erreicht.",
+        "save": "Speichern",
+        "cancel": "Abbrechen",
+        "delete": "Löschen"
       }
     },
     "history": {
@@ -396,7 +466,13 @@
       "save": "Transkription speichern",
       "unsave": "Aus Gespeicherten entfernen",
       "delete": "Eintrag löschen",
-      "deleteError": "Eintrag konnte nicht gelöscht werden. Bitte versuche es erneut."
+      "deleteError": "Eintrag konnte nicht gelöscht werden. Bitte versuche es erneut.",
+      "reprocess": "Mit anderem Modell neu verarbeiten",
+      "reprocessing": "Wird neu verarbeitet...",
+      "selectModel": "Modell auswählen",
+      "originalTranscript": "Original",
+      "postProcessed": "Nachbearbeitet",
+      "action": "Aktion {{key}}"
     },
     "debug": {
       "title": "Debug",

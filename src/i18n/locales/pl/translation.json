@@ -75,6 +75,10 @@
       "sense-voice-int8": {
         "name": "SenseVoice",
         "description": "Bardzo szybki. Chiński, angielski, japoński, koreański, kantoński."
+      },
+      "gemini-api": {
+        "name": "Gemini API",
+        "description": "Transkrypcja w chmurze za pomocą Google Gemini. Wymaga klucza API i połączenia z internetem."
       }
     },
     "errors": {
@@ -153,7 +157,27 @@
       },
       "noModelsMatch": "Żadne modele nie pasują do tego filtra.",
       "yourModels": "Pobrane modele",
-      "availableModels": "Dostępne do pobrania"
+      "availableModels": "Dostępne do pobrania",
+      "tabs": {
+        "transcription": "Transkrypcja",
+        "processing": "Przetwarzanie"
+      },
+      "processingModels": {
+        "title": "Modele przetwarzania",
+        "description": "Zapisz modele LLM do wykorzystania w akcjach postprocessingu.",
+        "noModels": "Nie zapisano jeszcze żadnych modeli przetwarzania. Dodaj jeden, aby użyć go w swoich akcjach.",
+        "addModel": "Dodaj model przetwarzania",
+        "provider": "Dostawca",
+        "baseUrl": "Adres serwera",
+        "apiKey": "Klucz API",
+        "apiKeyPlaceholder": "Wprowadź klucz API",
+        "model": "Model",
+        "modelPlaceholder": "Wybierz lub wpisz model",
+        "fetchModels": "Pobierz modele",
+        "save": "Zapisz",
+        "cancel": "Anuluj",
+        "alreadySaved": "Ten model został już zapisany."
+      }
     },
     "general": {
       "title": "Ogólne",
@@ -227,7 +251,8 @@
         "output": "Wyjście",
         "transcription": "Transkrypcja",
         "history": "Historia",
-        "experimental": "Eksperymentalne"
+        "experimental": "Eksperymentalne",
+        "cloudModels": "Modele w chmurze"
       },
       "audioFormat": {
         "title": "Format nagrywania",
@@ -385,6 +410,29 @@
         "cancel": "Anuluj",
         "selectToEdit": "Wybierz prompt powyżej, aby zobaczyć i edytować jego szczegóły.",
         "createFirst": "Kliknij 'Utwórz nowy prompt' powyżej, aby utworzyć pierwszy prompt postprocessingu."
+      },
+      "actions": {
+        "title": "Akcje",
+        "description": "Przypisz klawisze Ctrl+cyfra (1-9) do niestandardowych promptów. Naciśnij skrót podczas nagrywania, aby zastosować akcję po transkrypcji.",
+        "noActions": "Nie skonfigurowano jeszcze żadnych akcji.",
+        "createFirst": "Utwórz swoją pierwszą akcję, aby przetwarzać transkrypcje za pomocą skonfigurowanego dostawcy.",
+        "addAction": "Dodaj akcję",
+        "editAction": "Edytuj akcję",
+        "key": "Klawisz",
+        "keyLabel": "Klawisz (1-9)",
+        "name": "Nazwa",
+        "namePlaceholder": "np. Tryb e-mail",
+        "prompt": "Prompt",
+        "promptPlaceholder": "np. Sformatuj to jako profesjonalny e-mail z powitaniem i podpisem. Dodaj podziały wierszy między akapitami.",
+        "promptTip": "Wskazówka: użyj <code>${output}</code>, aby wstawić transkrybowany tekst do promptu.",
+        "model": "Model (opcjonalnie)",
+        "modelPlaceholder": "Wybierz model",
+        "modelTip": "Wybierz konkretny model dla tej akcji lub użyj domyślnego z sekcji API.",
+        "defaultModel": "Domyślne",
+        "save": "Zapisz",
+        "cancel": "Anuluj",
+        "delete": "Usuń",
+        "maxActionsReached": "Osiągnięto maksymalną liczbę 9 akcji."
       }
     },
     "history": {
@@ -396,7 +444,35 @@
       "save": "Zapisz transkrypcję",
       "unsave": "Usuń z zapisanych",
       "delete": "Usuń wpis",
-      "deleteError": "Nie udało się usunąć wpisu. Spróbuj ponownie."
+      "deleteError": "Nie udało się usunąć wpisu. Spróbuj ponownie.",
+      "reprocess": "Przetwórz ponownie innym modelem",
+      "reprocessing": "Przetwarzanie ponowne...",
+      "selectModel": "Wybierz model",
+      "originalTranscript": "Oryginał",
+      "postProcessed": "Po przetworzeniu",
+      "action": "Akcja {{key}}"
+    },
+    "gemini": {
+      "title": "Gemini API",
+      "description": "Użyj API Gemini od Google do transkrypcji w chmurze. Wymaga klucza API.",
+      "apiKey": "Klucz API",
+      "apiKeyPlaceholder": "Wprowadź swój klucz API Gemini",
+      "apiKeyRequired": "Wymagany klucz API",
+      "apiKeyRequiredDescription": "Wprowadź swój klucz API Google Gemini, aby korzystać z transkrypcji w chmurze.",
+      "model": "Model",
+      "modelDescription": "Wybierz model Gemini używany do transkrypcji",
+      "save": "Zapisz",
+      "cancel": "Anuluj"
+    },
+    "longAudioModel": {
+      "title": "Model dla długich nagrań",
+      "description": "Automatycznie przełącz na inny model, gdy czas nagrania przekroczy próg.",
+      "modelLabel": "Model dla długich nagrań",
+      "modelDescription": "Wybierz model używany dla nagrań dłuższych niż próg.",
+      "thresholdLabel": "Próg czasu trwania (sekundy)",
+      "thresholdDescription": "Przełącz na model dla długich nagrań, gdy nagranie przekroczy ten czas trwania.",
+      "seconds": "{{value}} s",
+      "disabled": "Wyłączone"
     },
     "debug": {
       "title": "Debugowanie",
