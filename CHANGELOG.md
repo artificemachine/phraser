@@ -160,3 +160,4 @@
 
 - 2026-06-25: chore: remove personal workspace path from tracked files
 - 2026-07-11: fix: update stale celstnblacc GitHub references to artificemachine (docs, about page, releasing guide)
+- 2026-07-11: chore: bump version to 0.9.1, sync package.json with Cargo.toml/tauri.conf.json (was stale at 0.7.12)
