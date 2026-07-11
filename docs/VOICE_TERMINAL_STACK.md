@@ -41,16 +41,16 @@ and interact with Claude Code — all by voice, all offline.
 
 ## Tools
 
-| Tool                                                | Role                           | Replaces             |
-| --------------------------------------------------- | ------------------------------ | -------------------- |
-| [Ghostty](https://ghostty.org/)                     | Terminal emulator              | iTerm2, Alacritty    |
-| [Zellij](https://zellij.dev/)                       | Multiplexer, splits, sessions  | tmux                 |
-| [Yazi](https://yazi-rs.github.io/)                  | TUI file manager               | `ls` + `cd` + Finder |
-| [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI                        | raw `git` commands   |
-| [Claude Code](https://claude.ai/code)               | AI coding agent                | —                    |
-| [zoxide](https://github.com/ajeetdsouza/zoxide)     | Smart `cd` with memory         | `cd`                 |
-| [phraser](https://github.com/celstnblacc/phraser)   | Voice → text (offline Whisper) | —                    |
-| [Ollama](https://ollama.com/)                       | Local LLM for NL→bash          | cloud LLMs           |
+| Tool                                                  | Role                           | Replaces             |
+| ----------------------------------------------------- | ------------------------------ | -------------------- |
+| [Ghostty](https://ghostty.org/)                       | Terminal emulator              | iTerm2, Alacritty    |
+| [Zellij](https://zellij.dev/)                         | Multiplexer, splits, sessions  | tmux                 |
+| [Yazi](https://yazi-rs.github.io/)                    | TUI file manager               | `ls` + `cd` + Finder |
+| [lazygit](https://github.com/jesseduffield/lazygit)   | Git TUI                        | raw `git` commands   |
+| [Claude Code](https://claude.ai/code)                 | AI coding agent                | —                    |
+| [zoxide](https://github.com/ajeetdsouza/zoxide)       | Smart `cd` with memory         | `cd`                 |
+| [phraser](https://github.com/artificemachine/phraser) | Voice → text (offline Whisper) | —                    |
+| [Ollama](https://ollama.com/)                         | Local LLM for NL→bash          | cloud LLMs           |
 
 ---
 
