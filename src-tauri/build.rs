@@ -164,8 +164,8 @@ fn build_apple_intelligence_bridge() {
     // macro implementation error.
     let framework_path =
         Path::new(&sdk_path).join("System/Library/Frameworks/FoundationModels.framework");
-    let macro_plugin_path = toolchain_usr_dir
-        .join("lib/swift/host/plugins/libFoundationModelsMacros.dylib");
+    let macro_plugin_path =
+        toolchain_usr_dir.join("lib/swift/host/plugins/libFoundationModelsMacros.dylib");
     let has_foundation_models = framework_path.exists() && macro_plugin_path.exists();
 
     let source_file = if has_foundation_models {
