@@ -162,3 +162,4 @@
 - 2026-07-11: fix: update stale celstnblacc GitHub references to artificemachine (docs, about page, releasing guide)
 - 2026-07-11: chore: bump version to 0.9.1, sync package.json with Cargo.toml/tauri.conf.json (was stale at 0.7.12)
 - 2026-07-11: docs: refresh HANDOFF.md with v0.9.1 release session summary and newly found known issues
+- 2026-07-11: docs: prepend structured session handoff block to HANDOFF.md via /handoff-update, persist to ICM
