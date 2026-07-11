@@ -123,7 +123,7 @@ The workflow will:
 
 ## Landing Page
 
-The project website is served via GitHub Pages from the `docs/` folder on the `main` branch. Any changes pushed to `docs/` will automatically deploy to `celstnblacc.github.io/phraser`.
+The project website is served via GitHub Pages from the `docs/` folder on the `main` branch. Any changes pushed to `docs/` will automatically deploy to `artificemachine.github.io/phraser`.
 
 To set up GitHub Pages:
 

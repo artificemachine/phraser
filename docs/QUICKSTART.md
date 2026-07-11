@@ -28,7 +28,7 @@ npm install -g @anthropic-ai/claude-code
 ## 1. Clone & install dependencies
 
 ```bash
-git clone https://github.com/celstnblacc/phraser.git
+git clone https://github.com/artificemachine/phraser.git
 cd phraser
 bun install
 ```

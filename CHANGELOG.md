@@ -159,3 +159,4 @@
 - 2026-05-01: fix: add audioFormat i18n translations to all 16 locales
 
 - 2026-06-25: chore: remove personal workspace path from tracked files
+- 2026-07-11: fix: update stale celstnblacc GitHub references to artificemachine (docs, about page, releasing guide)
