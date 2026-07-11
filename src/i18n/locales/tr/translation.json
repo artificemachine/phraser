@@ -75,6 +75,10 @@
       "sense-voice-int8": {
         "name": "SenseVoice",
         "description": "Çok hızlı. Çince, İngilizce, Japonca, Korece, Kantonca."
+      },
+      "gemini-api": {
+        "name": "Gemini API",
+        "description": "Google Gemini üzerinden bulut tabanlı transkripsiyon. API anahtarı ve internet bağlantısı gerektirir."
       }
     },
     "errors": {
@@ -153,7 +157,27 @@
       },
       "noModelsMatch": "Bu filtreyle eşleşen model yok.",
       "yourModels": "İndirilen modeller",
-      "availableModels": "İndirilebilir"
+      "availableModels": "İndirilebilir",
+      "tabs": {
+        "transcription": "Transkripsiyon",
+        "processing": "İşleme"
+      },
+      "processingModels": {
+        "title": "İşleme Modelleri",
+        "description": "Son işlem eylemlerinde kullanmak üzere LLM modelleri kaydedin.",
+        "noModels": "Henüz kaydedilmiş işleme modeli yok. Eylemlerinizde kullanmak için bir tane ekleyin.",
+        "addModel": "İşleme Modeli Ekle",
+        "provider": "Sağlayıcı",
+        "baseUrl": "Sunucu URL'si",
+        "apiKey": "API Anahtarı",
+        "apiKeyPlaceholder": "API anahtarını girin",
+        "model": "Model",
+        "modelPlaceholder": "Bir model seçin veya yazın",
+        "fetchModels": "Modelleri getir",
+        "alreadySaved": "Bu model zaten kaydedilmiş.",
+        "save": "Kaydet",
+        "cancel": "İptal"
+      }
     },
     "general": {
       "title": "Genel",
@@ -227,7 +251,8 @@
         "output": "Çıktı",
         "transcription": "Transkripsiyon",
         "history": "Geçmiş",
-        "experimental": "Deneysel"
+        "experimental": "Deneysel",
+        "cloudModels": "Bulut Modelleri"
       },
       "audioFormat": {
         "title": "Kayıt Formatı",
@@ -385,6 +410,29 @@
         "cancel": "İptal",
         "selectToEdit": "Ayrıntılarını görüntülemek ve düzenlemek için yukarıdan bir prompt seçin.",
         "createFirst": "İlk son işlem prompt'unuzu oluşturmak için yukarıdaki “Yeni Prompt Oluştur” seçeneğine tıklayın."
+      },
+      "actions": {
+        "title": "Eylemler",
+        "description": "Ctrl+sayı tuşlarını (1-9) özel promptlara bağlayın. Transkripsiyondan sonra eylemi uygulamak için kayıt sırasında bir kısayola basın.",
+        "noActions": "Henüz yapılandırılmış eylem yok.",
+        "createFirst": "Yapılandırdığınız sağlayıcıyla transkripsiyonları işlemek için ilk eyleminizi oluşturun.",
+        "addAction": "Eylem Ekle",
+        "editAction": "Eylemi Düzenle",
+        "key": "Tuş",
+        "keyLabel": "Tuş (1-9)",
+        "name": "Ad",
+        "namePlaceholder": "örn. E-posta modu",
+        "prompt": "Prompt",
+        "promptPlaceholder": "örn. Bunu selamlama ve kapanışla profesyonel bir e-posta olarak biçimlendir. Paragraflar arasına satır sonu ekle.",
+        "promptTip": "İpucu: Transkribe edilen metni promptunuza eklemek için <code>${output}</code> kullanın.",
+        "model": "Model (isteğe bağlı)",
+        "modelPlaceholder": "Bir model seçin",
+        "modelTip": "Bu eylem için belirli bir model seçin veya API bölümündeki varsayılanı kullanın.",
+        "defaultModel": "Varsayılan",
+        "save": "Kaydet",
+        "cancel": "İptal",
+        "delete": "Sil",
+        "maxActionsReached": "Maksimum 9 eylem sınırına ulaşıldı."
       }
     },
     "history": {
@@ -396,7 +444,35 @@
       "save": "Transkripsiyonu kaydet",
       "unsave": "Kaydedilenlerden kaldır",
       "delete": "Kaydı sil",
-      "deleteError": "Kayıt silinemedi. Lütfen tekrar deneyin."
+      "deleteError": "Kayıt silinemedi. Lütfen tekrar deneyin.",
+      "reprocess": "Farklı bir modelle yeniden işle",
+      "reprocessing": "Yeniden işleniyor...",
+      "selectModel": "Model seç",
+      "originalTranscript": "Orijinal",
+      "postProcessed": "Son işlem uygulanmış",
+      "action": "Eylem {{key}}"
+    },
+    "gemini": {
+      "title": "Gemini API",
+      "description": "Bulut tabanlı transkripsiyon için Google'ın Gemini API'sini kullanın. Bir API anahtarı gerektirir.",
+      "apiKey": "API Anahtarı",
+      "apiKeyPlaceholder": "Gemini API anahtarınızı girin",
+      "model": "Model",
+      "modelDescription": "Transkripsiyon için kullanılacak Gemini modelini seçin",
+      "apiKeyRequired": "API Anahtarı Gerekli",
+      "apiKeyRequiredDescription": "Bulut transkripsiyonunu kullanmak için Google Gemini API anahtarınızı girin.",
+      "save": "Kaydet",
+      "cancel": "İptal"
+    },
+    "longAudioModel": {
+      "title": "Uzun Ses Modeli",
+      "description": "Kayıt süresi eşiği aştığında otomatik olarak farklı bir modele geçer.",
+      "modelLabel": "Uzun kayıtlar için model",
+      "modelDescription": "Eşikten daha uzun kayıtlar için kullanılacak bir model seçin.",
+      "thresholdLabel": "Süre eşiği (saniye)",
+      "thresholdDescription": "Kayıt bu süreyi aştığında uzun ses modeline geçer.",
+      "seconds": "{{value}}sn",
+      "disabled": "Devre Dışı"
     },
     "debug": {
       "title": "Hata Ayıklama",

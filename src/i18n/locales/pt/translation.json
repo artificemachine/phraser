@@ -75,6 +75,10 @@
       "sense-voice-int8": {
         "name": "SenseVoice",
         "description": "Muito rápido. Chinês, inglês, japonês, coreano, cantonês."
+      },
+      "gemini-api": {
+        "name": "Gemini API",
+        "description": "Transcrição baseada em nuvem via Google Gemini. Requer chave de API e internet."
       }
     },
     "errors": {
@@ -195,7 +199,49 @@
       },
       "noModelsMatch": "Nenhum modelo corresponde a este filtro.",
       "yourModels": "Modelos baixados",
-      "availableModels": "Disponíveis para download"
+      "availableModels": "Disponíveis para download",
+      "tabs": {
+        "transcription": "Transcrição",
+        "processing": "Processamento"
+      },
+      "processingModels": {
+        "title": "Modelos de Processamento",
+        "description": "Salve modelos LLM para uso em ações de pós-processamento.",
+        "noModels": "Nenhum modelo de processamento salvo ainda. Adicione um para usar em suas ações.",
+        "addModel": "Adicionar Modelo de Processamento",
+        "provider": "Provedor",
+        "baseUrl": "URL do Servidor",
+        "apiKey": "Chave da API",
+        "apiKeyPlaceholder": "Insira a chave de API",
+        "model": "Modelo",
+        "modelPlaceholder": "Selecione ou digite um modelo",
+        "fetchModels": "Buscar modelos",
+        "alreadySaved": "Este modelo já está salvo.",
+        "save": "Salvar",
+        "cancel": "Cancelar"
+      }
+    },
+    "gemini": {
+      "title": "Gemini API",
+      "description": "Use a API Gemini do Google para transcrição baseada em nuvem. Requer uma chave de API.",
+      "apiKey": "Chave da API",
+      "apiKeyPlaceholder": "Insira sua chave de API do Gemini",
+      "model": "Modelo",
+      "modelDescription": "Selecione qual modelo Gemini usar para transcrição",
+      "apiKeyRequired": "Chave de API Necessária",
+      "apiKeyRequiredDescription": "Insira sua chave de API do Google Gemini para usar a transcrição em nuvem.",
+      "save": "Salvar",
+      "cancel": "Cancelar"
+    },
+    "longAudioModel": {
+      "title": "Modelo para Áudio Longo",
+      "description": "Alternar automaticamente para um modelo diferente quando a duração da gravação exceder o limite.",
+      "modelLabel": "Modelo para gravações longas",
+      "modelDescription": "Selecione um modelo para usar em gravações mais longas que o limite.",
+      "thresholdLabel": "Limite de duração (segundos)",
+      "thresholdDescription": "Alternar para o modelo de áudio longo quando a gravação exceder esta duração.",
+      "seconds": "{{value}}s",
+      "disabled": "Desabilitado"
     },
     "sound": {
       "title": "Som",
@@ -226,6 +272,7 @@
         "app": "Aplicativo",
         "output": "Saída",
         "transcription": "Transcrição",
+        "cloudModels": "Modelos em Nuvem",
         "history": "Histórico",
         "experimental": "Experimental"
       },
@@ -385,6 +432,29 @@
         "cancel": "Cancelar",
         "selectToEdit": "Selecione um prompt acima para visualizar e editar seus detalhes.",
         "createFirst": "Clique em 'Criar Novo Prompt' acima para criar seu primeiro prompt de pós-processamento."
+      },
+      "actions": {
+        "title": "Ações",
+        "description": "Vincule as teclas Ctrl+número (1-9) a prompts personalizados. Pressione um atalho durante a gravação para aplicar a ação após a transcrição.",
+        "noActions": "Nenhuma ação configurada ainda.",
+        "createFirst": "Crie sua primeira ação para processar transcrições com seu provedor configurado.",
+        "addAction": "Adicionar Ação",
+        "editAction": "Editar Ação",
+        "key": "Tecla",
+        "keyLabel": "Tecla (1-9)",
+        "name": "Nome",
+        "namePlaceholder": "Ex.: Modo e-mail",
+        "prompt": "Prompt",
+        "promptPlaceholder": "Ex.: Formate isto como um e-mail profissional com saudação e despedida. Adicione quebras de linha entre parágrafos.",
+        "promptTip": "Dica: Use <code>${output}</code> para inserir o texto transcrito no seu prompt.",
+        "model": "Modelo (opcional)",
+        "modelPlaceholder": "Selecione um modelo",
+        "modelTip": "Selecione um modelo específico para esta ação, ou use o padrão da seção API.",
+        "defaultModel": "Padrão",
+        "maxActionsReached": "Máximo de 9 ações atingido.",
+        "save": "Salvar",
+        "cancel": "Cancelar",
+        "delete": "Excluir"
       }
     },
     "history": {
@@ -396,7 +466,13 @@
       "save": "Salvar transcrição",
       "unsave": "Remover dos salvos",
       "delete": "Excluir entrada",
-      "deleteError": "Falha ao excluir entrada. Por favor, tente novamente."
+      "deleteError": "Falha ao excluir entrada. Por favor, tente novamente.",
+      "reprocess": "Reprocessar com um modelo diferente",
+      "reprocessing": "Reprocessando...",
+      "selectModel": "Selecionar modelo",
+      "originalTranscript": "Original",
+      "postProcessed": "Pós-processado",
+      "action": "Ação {{key}}"
     },
     "debug": {
       "title": "Depuração",

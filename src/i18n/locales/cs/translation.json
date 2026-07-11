@@ -75,6 +75,10 @@
       "sense-voice-int8": {
         "name": "SenseVoice",
         "description": "Velmi rychlý. Čínština, angličtina, japonština, korejština, kantonština."
+      },
+      "gemini-api": {
+        "name": "Gemini API",
+        "description": "Cloudový přepis pomocí Google Gemini. Vyžaduje API klíč a internetové připojení."
       }
     },
     "errors": {
@@ -153,7 +157,49 @@
       },
       "noModelsMatch": "Tomuto filtru neodpovídají žádné modely.",
       "yourModels": "Stažené modely",
-      "availableModels": "Dostupné ke stažení"
+      "availableModels": "Dostupné ke stažení",
+      "tabs": {
+        "transcription": "Přepis",
+        "processing": "Zpracování"
+      },
+      "processingModels": {
+        "title": "Modely pro zpracování",
+        "description": "Uložte LLM modely pro použití v akcích následného zpracování.",
+        "noModels": "Zatím nejsou uloženy žádné modely pro zpracování. Přidejte jeden pro použití ve vašich akcích.",
+        "addModel": "Přidat model pro zpracování",
+        "provider": "Poskytovatel",
+        "baseUrl": "URL serveru",
+        "apiKey": "API klíč",
+        "apiKeyPlaceholder": "Zadejte API klíč",
+        "model": "Model",
+        "modelPlaceholder": "Vyberte nebo zadejte model",
+        "fetchModels": "Načíst modely",
+        "alreadySaved": "Tento model je již uložen.",
+        "save": "Uložit",
+        "cancel": "Zrušit"
+      }
+    },
+    "gemini": {
+      "title": "Gemini API",
+      "description": "Použijte Gemini API od Google pro cloudový přepis. Vyžaduje API klíč.",
+      "apiKey": "API klíč",
+      "apiKeyPlaceholder": "Zadejte svůj API klíč Gemini",
+      "model": "Model",
+      "modelDescription": "Vyberte, který model Gemini použít pro přepis",
+      "apiKeyRequired": "Vyžadován API klíč",
+      "apiKeyRequiredDescription": "Zadejte svůj API klíč Google Gemini pro použití cloudového přepisu.",
+      "save": "Uložit",
+      "cancel": "Zrušit"
+    },
+    "longAudioModel": {
+      "title": "Model pro dlouhé nahrávky",
+      "description": "Automaticky přepnout na jiný model, pokud délka nahrávky překročí zadanou hranici.",
+      "modelLabel": "Model pro dlouhé nahrávky",
+      "modelDescription": "Vyberte model, který se použije pro nahrávky delší než zadaná hranice.",
+      "thresholdLabel": "Hranice délky (sekundy)",
+      "thresholdDescription": "Přepnout na model pro dlouhé nahrávky, pokud nahrávka překročí tuto délku.",
+      "seconds": "{{value}} s",
+      "disabled": "Vypnuto"
     },
     "general": {
       "title": "Obecné",
@@ -227,7 +273,8 @@
         "output": "Výstup",
         "transcription": "Přepis",
         "history": "Historie",
-        "experimental": "Experimentální"
+        "experimental": "Experimentální",
+        "cloudModels": "Cloudové modely"
       },
       "audioFormat": {
         "title": "Formát nahrávání",
@@ -385,6 +432,29 @@
         "cancel": "Zrušit",
         "selectToEdit": "Vyberte výše prompt, abyste zobrazili a upravili jeho podrobnosti.",
         "createFirst": "Klikněte nahoře na 'Vytvořit nový prompt' a vytvořte svůj první prompt pro následné zpracování."
+      },
+      "actions": {
+        "title": "Akce",
+        "description": "Přiřaďte klávesy Ctrl+číslo (1-9) vlastním promptům. Během nahrávání stiskněte zkratku pro použití akce po přepisu.",
+        "noActions": "Zatím nejsou nastaveny žádné akce.",
+        "createFirst": "Vytvořte svou první akci pro zpracování přepisů s vaším nakonfigurovaným poskytovatelem.",
+        "addAction": "Přidat akci",
+        "editAction": "Upravit akci",
+        "key": "Klávesa",
+        "keyLabel": "Klávesa (1-9)",
+        "name": "Název",
+        "namePlaceholder": "např. Režim e-mailu",
+        "prompt": "Prompt",
+        "promptPlaceholder": "např. Naformátujte tento text jako profesionální e-mail s pozdravem a podpisem. Přidejte zalomení řádků mezi odstavci.",
+        "promptTip": "Tip: Použijte <code>${output}</code> pro vložení přepsaného textu do promptu.",
+        "model": "Model (volitelné)",
+        "modelPlaceholder": "Vyberte model",
+        "modelTip": "Vyberte konkrétní model pro tuto akci, nebo použijte výchozí model ze sekce API.",
+        "defaultModel": "Výchozí",
+        "maxActionsReached": "Dosažen maximální počet 9 akcí.",
+        "save": "Uložit",
+        "cancel": "Zrušit",
+        "delete": "Smazat"
       }
     },
     "history": {
@@ -396,7 +466,13 @@
       "save": "Uložit přepis",
       "unsave": "Odebrat z uložených",
       "delete": "Smazat záznam",
-      "deleteError": "Nepodařilo se smazat záznam. Zkuste to prosím znovu."
+      "deleteError": "Nepodařilo se smazat záznam. Zkuste to prosím znovu.",
+      "reprocess": "Znovu zpracovat s jiným modelem",
+      "reprocessing": "Znovu zpracovávám...",
+      "selectModel": "Vyberte model",
+      "originalTranscript": "Původní",
+      "postProcessed": "Zpracováno",
+      "action": "Akce {{key}}"
     },
     "debug": {
       "title": "Ladění",

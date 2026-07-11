@@ -75,6 +75,10 @@
       "sense-voice-int8": {
         "name": "SenseVoice",
         "description": "매우 빠름. 중국어, 영어, 일본어, 한국어, 광둥어."
+      },
+      "gemini-api": {
+        "name": "Gemini API",
+        "description": "Google Gemini를 통한 클라우드 기반 전사. API 키와 인터넷 연결이 필요합니다."
       }
     },
     "errors": {
@@ -218,7 +222,49 @@
         "translation": "번역",
         "allLanguages": "모든 언어"
       },
-      "noModelsMatch": "이 필터에 맞는 모델이 없습니다."
+      "noModelsMatch": "이 필터에 맞는 모델이 없습니다.",
+      "tabs": {
+        "transcription": "전사",
+        "processing": "처리"
+      },
+      "processingModels": {
+        "title": "처리 모델",
+        "description": "후처리 작업에 사용할 LLM 모델을 저장하세요.",
+        "noModels": "아직 저장된 처리 모델이 없습니다. 작업에 사용할 모델을 추가하세요.",
+        "addModel": "처리 모델 추가",
+        "provider": "제공자",
+        "baseUrl": "서버 URL",
+        "apiKey": "API 키",
+        "apiKeyPlaceholder": "API 키 입력",
+        "model": "모델",
+        "modelPlaceholder": "모델을 선택하거나 입력하세요",
+        "fetchModels": "모델 가져오기",
+        "alreadySaved": "이 모델은 이미 저장되어 있습니다.",
+        "save": "저장",
+        "cancel": "취소"
+      }
+    },
+    "gemini": {
+      "title": "Gemini API",
+      "description": "클라우드 기반 전사를 위해 Google의 Gemini API를 사용합니다. API 키가 필요합니다.",
+      "apiKey": "API 키",
+      "apiKeyPlaceholder": "Gemini API 키를 입력하세요",
+      "model": "모델",
+      "modelDescription": "전사에 사용할 Gemini 모델을 선택하세요",
+      "apiKeyRequired": "API 키 필요",
+      "apiKeyRequiredDescription": "클라우드 전사를 사용하려면 Google Gemini API 키를 입력하세요.",
+      "save": "저장",
+      "cancel": "취소"
+    },
+    "longAudioModel": {
+      "title": "긴 오디오 모델",
+      "description": "녹음 시간이 임계값을 초과하면 자동으로 다른 모델로 전환합니다.",
+      "disabled": "비활성화됨",
+      "modelLabel": "긴 녹음용 모델",
+      "modelDescription": "임계값보다 긴 녹음에 사용할 모델을 선택하세요.",
+      "thresholdLabel": "지속 시간 임계값(초)",
+      "thresholdDescription": "녹음이 이 시간을 초과하면 긴 오디오 모델로 전환합니다.",
+      "seconds": "{{value}}초"
     },
     "advanced": {
       "title": "고급",
@@ -227,7 +273,8 @@
         "output": "출력",
         "transcription": "전사",
         "history": "히스토리",
-        "experimental": "실험적"
+        "experimental": "실험적",
+        "cloudModels": "클라우드 모델"
       },
       "audioFormat": {
         "title": "녹음 형식",
@@ -385,6 +432,29 @@
         "cancel": "취소",
         "selectToEdit": "세부 정보를 보고 편집하려면 위에서 프롬프트를 선택하세요.",
         "createFirst": "첫 번째 후처리 프롬프트를 만들려면 위의 '새 프롬프트 만들기'를 클릭하세요."
+      },
+      "actions": {
+        "title": "작업",
+        "description": "Ctrl+숫자 키(1-9)를 사용자 정의 프롬프트에 지정하세요. 녹음 중 단축키를 누르면 전사 후 해당 작업이 적용됩니다.",
+        "noActions": "아직 구성된 작업이 없습니다.",
+        "createFirst": "구성한 제공자로 전사를 처리하려면 첫 번째 작업을 만드세요.",
+        "addAction": "작업 추가",
+        "editAction": "작업 편집",
+        "key": "키",
+        "keyLabel": "키 (1-9)",
+        "name": "이름",
+        "namePlaceholder": "예: 이메일 모드",
+        "prompt": "프롬프트",
+        "promptPlaceholder": "예: 인사말과 맺음말이 포함된 전문적인 이메일 형식으로 작성하세요. 문단 사이에 줄바꿈을 추가하세요.",
+        "promptTip": "팁: 프롬프트에서 변환된 텍스트를 삽입하려면 <code>${output}</code>을 사용하세요.",
+        "model": "모델 (선택 사항)",
+        "modelPlaceholder": "모델 선택",
+        "modelTip": "이 작업에 사용할 특정 모델을 선택하거나 API 섹션의 기본값을 사용하세요.",
+        "defaultModel": "기본값",
+        "maxActionsReached": "최대 9개의 작업에 도달했습니다.",
+        "save": "저장",
+        "cancel": "취소",
+        "delete": "삭제"
       }
     },
     "history": {
@@ -396,7 +466,13 @@
       "save": "변환된 텍스트 저장",
       "unsave": "저장에서 제거",
       "delete": "항목 삭제",
-      "deleteError": "항목 삭제에 실패했습니다. 다시 시도해주세요."
+      "deleteError": "항목 삭제에 실패했습니다. 다시 시도해주세요.",
+      "reprocess": "다른 모델로 다시 처리",
+      "reprocessing": "다시 처리 중...",
+      "selectModel": "모델 선택",
+      "originalTranscript": "원본",
+      "postProcessed": "후처리됨",
+      "action": "작업 {{key}}"
     },
     "debug": {
       "title": "디버그",
