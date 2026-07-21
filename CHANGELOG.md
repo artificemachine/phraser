@@ -1,5 +1,7 @@
 # Changelog
 
+- 2026-07-21: docs: align CODE_OF_CONDUCT.md with concise 5-line CoC (replaces Contributor Covenant boilerplate with internal style)
+
 ## [0.3.0] - 2025-07-11
 
 ### Added
