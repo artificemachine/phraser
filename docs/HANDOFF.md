@@ -1,3 +1,85 @@
+# Session Handoff: 2026-08-27b (ship v0.10.1 and v0.10.2, repair a dead auto-updater)
+
+Agent: Claude Code (Opus 5) | Branch: main | Tests: 183 vitest + 155 cargo + 10 playwright pass, 0 fail, 0 skip | COMMITTED
+
+Continuation of the 2026-08-27 block below, which covers the CI work in PRs
+#21 through #26. This block covers what happened after it: two releases and
+one real user-facing bug found while verifying them.
+
+## What happened this session
+
+### v0.10.1 (PR #27)
+
+`main` had drifted six merged PRs past the v0.10.0 release with no version
+bump, which violates the repo's own rule that fix/security/chore takes a
+patch. #24 in particular was a genuine security change. Bumped 0.10.0 to
+0.10.1 across `package.json`, `src-tauri/tauri.conf.json`,
+`src-tauri/Cargo.toml` and `Cargo.lock`, released, installed.
+
+### The auto-updater has been dead since the org move (PR #28)
+
+Found while verifying the 0.10.1 install, which is the release whose whole
+justification was getting the security work in front of existing users.
+
+`src-tauri/tauri.conf.json` still advertised the old `newblacc` owner:
+
+https://github.com/newblacc/phraser/releases/latest/download/latest.json 404
+https://github.com/artificemachine/phraser/... 200
+
+**Every installed copy has been silently failing its update check** since the
+repository moved orgs. PR #17 cleaned up the `celstnblacc` and `newblacc`
+references in prose but missed this one, because it lives in config rather
+than documentation.
+
+The branding test did not catch it either.
+`tauri_conf_updater_endpoint_uses_phraser` asserted only that the endpoint
+contains `"/phraser/"`, which the wrong-org URL satisfies perfectly. The test
+now asserts the owner. It was tightened first and confirmed failing against
+the old value before the fix went in.
+
+Also repointed `llm_client.rs:9,10`, where `PHRASER_USER_AGENT` and
+`PHRASER_REFERER` were advertising the dead URL to third-party LLM APIs, plus
+five README links.
+
+Bumped to 0.10.2, released, installed.
+
+### What the fix does not do
+
+Clients read the updater endpoint compiled into the build they are already
+running. **0.10.2 cannot repair anything already installed.** Anyone on
+0.10.1 or earlier still needs a manual reinstall from the releases page. The
+repair only takes effect for updates originating from 0.10.2 forward.
+
+## Next session, first moves
+
+1. Nothing is blocking. `Cargo audit` is the only red step on the board and it
+   is not actionable from this repo: `quick-xml` needs `>=0.41.0` (via `plist`
+   and `wayland-scanner`), `rkyv` needs `>=0.8.17` (via `rust_decimal`).
+   Recheck after a Tauri bump.
+2. Go product, not plumbing. Two full sessions have now gone to CI and supply
+   chain with zero user-facing change.
+3. Housekeeping: `docs/GUIDE-voxtype-install.md` is untracked, commit or
+   delete it. `.serena/project.yml` is perennially dirty and fails
+   `format:check`.
+4. Optional: gate L2 and L6, which still carry `continue-on-error` and pass
+   consistently. Left alone for lack of run history.
+
+### Operational notes
+
+- Installed app: `/Applications/phraser.app` 0.10.2, ad-hoc signed, installed
+  from the release DMG and running. 0.10.0 and 0.10.1 bundles are backed up in
+  the session scratchpad.
+- Release flow is `workflow_dispatch` only: `gh workflow run release.yml --ref
+main`, which reads the version from `src-tauri/tauri.conf.json` and creates
+  a **draft**. Publish with `gh release edit vX.Y.Z --draft=false`. It does not
+  publish itself.
+- Verify an updater change against the shipped binary, not the config file:
+  `strings /Applications/phraser.app/Contents/MacOS/phraser | grep latest.json`
+- ICM was unreachable this session, along with serena, tilth, persona, pencil,
+  hablatone and obsidian-semantic. This handoff exists only in this file.
+
+---
+
 # Session Handoff: 2026-08-27 (voxtype triage, Whisper Turbo default, then the whole CI board green)
 
 Agent: Claude Code (Opus 5) | Branch: main | Tests: 183 vitest + 155 cargo + 10 playwright, 0 fail | COMMITTED
