@@ -183,3 +183,4 @@
 - 2026-08-27: chore: exclude AGENTS.md and CLAUDE.md from prettier (3.9+ escapes bare ~ as ~~)
 - 2026-08-27: chore: vendor the Geist Pixel woff2 and drop the geist dependency, removing Next.js and sharp (327 MB of node_modules)
 - 2026-08-27: docs: add the 2026-08-27 session handoff and commit the previously-uncommitted 2026-07-11 block
+- 2026-08-27: chore: bump version to 0.10.1 (security + CI work in PRs #21-#26, no behavior change)
