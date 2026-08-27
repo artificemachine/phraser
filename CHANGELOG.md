@@ -170,3 +170,4 @@
 - 2026-08-27: feat: default long-audio model to Whisper Turbo for new installs, warn in settings when the configured model is not downloaded
 - 2026-08-27: fix: backfill 64 missing i18n keys for uk, zh, zh-TW — all 16 locales now complete
 - 2026-08-27: fix: mirror is_model_downloaded onto the CI mock TranscriptionManager
+- 2026-08-27: docs: add docs/KNOWN_CI_GAPS.md tracking the L1 dependency-audit and L3 Vulkan CI failures
