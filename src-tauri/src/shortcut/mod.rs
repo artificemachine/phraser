@@ -312,14 +312,14 @@ pub fn change_keyboard_implementation_setting(
     settings::write_settings(&app, settings);
 
     // Initialize new implementation if needed (PhraserKeys needs state)
-    if new_impl == KeyboardImplementation::PhraserKeys {
-        if initialize_phraser_keys_with_rollback(&app)? {
-            // Shortcuts already registered during init
-            return Ok(ImplementationChangeResult {
-                success: true,
-                reset_bindings: vec![],
-            });
-        }
+    if new_impl == KeyboardImplementation::PhraserKeys
+        && initialize_phraser_keys_with_rollback(&app)?
+    {
+        // Shortcuts already registered during init
+        return Ok(ImplementationChangeResult {
+            success: true,
+            reset_bindings: vec![],
+        });
     }
 
     // Register all shortcuts with new implementation, resetting invalid ones
@@ -1003,7 +1003,7 @@ pub fn add_post_process_action(
     model: Option<String>,
     provider_id: Option<String>,
 ) -> Result<settings::PostProcessAction, String> {
-    if key < 1 || key > 9 {
+    if !(1..=9).contains(&key) {
         return Err("Action key must be between 1 and 9".to_string());
     }
 

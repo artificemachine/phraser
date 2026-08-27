@@ -84,7 +84,7 @@ impl TranscriptionCoordinator {
                             // Releases always pass through for push-to-talk.
                             if is_pressed {
                                 let now = Instant::now();
-                                if last_press.map_or(false, |t| now.duration_since(t) < DEBOUNCE) {
+                                if last_press.is_some_and(|t| now.duration_since(t) < DEBOUNCE) {
                                     debug!("Debounced press for '{binding_id}'");
                                     continue;
                                 }
@@ -277,6 +277,50 @@ impl TranscriptionCoordinator {
     }
 }
 
+fn start(app: &AppHandle, stage: &mut Stage, binding_id: &str, hotkey_string: &str) {
+    let Some(action) = ACTION_MAP.get(binding_id) else {
+        warn!("No action in ACTION_MAP for '{binding_id}'");
+        return;
+    };
+    action.start(app, binding_id, hotkey_string);
+    if app
+        .try_state::<Arc<AudioRecordingManager>>()
+        .is_some_and(|a| a.is_recording())
+    {
+        *stage = Stage::Recording {
+            binding_id: binding_id.to_string(),
+            selected_action: None,
+        };
+    } else {
+        debug!("Start for '{binding_id}' did not begin recording; staying idle");
+    }
+}
+
+fn stop(app: &AppHandle, stage: &mut Stage, binding_id: &str, hotkey_string: &str) {
+    // Store selected action in managed state before calling stop
+    if let Stage::Recording {
+        selected_action, ..
+    } = &stage
+    {
+        if let Some(state) = app.try_state::<ActiveActionState>() {
+            match state.0.lock() {
+                Ok(mut guard) => *guard = *selected_action,
+                Err(poisoned) => {
+                    error!("ActiveActionState mutex poisoned, recovering");
+                    *poisoned.into_inner() = *selected_action;
+                }
+            }
+        }
+    }
+
+    let Some(action) = ACTION_MAP.get(binding_id) else {
+        warn!("No action in ACTION_MAP for '{binding_id}'");
+        return;
+    };
+    action.stop(app, binding_id, hotkey_string);
+    *stage = Stage::Processing;
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -336,48 +380,4 @@ mod tests {
         assert_eq!(parse_action_key("action_256"), None);
         assert_eq!(parse_action_key("action_999"), None);
     }
-}
-
-fn start(app: &AppHandle, stage: &mut Stage, binding_id: &str, hotkey_string: &str) {
-    let Some(action) = ACTION_MAP.get(binding_id) else {
-        warn!("No action in ACTION_MAP for '{binding_id}'");
-        return;
-    };
-    action.start(app, binding_id, hotkey_string);
-    if app
-        .try_state::<Arc<AudioRecordingManager>>()
-        .map_or(false, |a| a.is_recording())
-    {
-        *stage = Stage::Recording {
-            binding_id: binding_id.to_string(),
-            selected_action: None,
-        };
-    } else {
-        debug!("Start for '{binding_id}' did not begin recording; staying idle");
-    }
-}
-
-fn stop(app: &AppHandle, stage: &mut Stage, binding_id: &str, hotkey_string: &str) {
-    // Store selected action in managed state before calling stop
-    if let Stage::Recording {
-        selected_action, ..
-    } = &stage
-    {
-        if let Some(state) = app.try_state::<ActiveActionState>() {
-            match state.0.lock() {
-                Ok(mut guard) => *guard = *selected_action,
-                Err(poisoned) => {
-                    error!("ActiveActionState mutex poisoned, recovering");
-                    *poisoned.into_inner() = *selected_action;
-                }
-            }
-        }
-    }
-
-    let Some(action) = ACTION_MAP.get(binding_id) else {
-        warn!("No action in ACTION_MAP for '{binding_id}'");
-        return;
-    };
-    action.stop(app, binding_id, hotkey_string);
-    *stage = Stage::Processing;
 }

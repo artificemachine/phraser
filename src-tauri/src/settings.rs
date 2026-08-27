@@ -151,17 +151,12 @@ pub struct PostProcessProvider {
     pub supports_structured_output: bool,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Type)]
+#[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Type, Default)]
 #[serde(rename_all = "lowercase")]
 pub enum AudioFormat {
+    #[default]
     Wav,
     Mp3,
-}
-
-impl Default for AudioFormat {
-    fn default() -> Self {
-        AudioFormat::Wav
-    }
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Type)]
@@ -172,9 +167,10 @@ pub enum OverlayPosition {
     Bottom,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Type)]
+#[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Type, Default)]
 #[serde(rename_all = "snake_case")]
 pub enum ModelUnloadTimeout {
+    #[default]
     Never,
     Immediately,
     Min2,
@@ -196,16 +192,18 @@ pub enum PasteMethod {
     ExternalScript,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Type)]
+#[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Type, Default)]
 #[serde(rename_all = "snake_case")]
 pub enum ClipboardHandling {
+    #[default]
     DontModify,
     CopyToClipboard,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Type)]
+#[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Type, Default)]
 #[serde(rename_all = "snake_case")]
 pub enum AutoSubmitKey {
+    #[default]
     Enter,
     CtrlEnter,
     CmdEnter,
@@ -239,12 +237,6 @@ impl Default for KeyboardImplementation {
     }
 }
 
-impl Default for ModelUnloadTimeout {
-    fn default() -> Self {
-        ModelUnloadTimeout::Never
-    }
-}
-
 impl Default for PasteMethod {
     fn default() -> Self {
         // Default to CtrlV for macOS and Windows, Direct for Linux
@@ -252,18 +244,6 @@ impl Default for PasteMethod {
         return PasteMethod::Direct;
         #[cfg(not(target_os = "linux"))]
         return PasteMethod::CtrlV;
-    }
-}
-
-impl Default for ClipboardHandling {
-    fn default() -> Self {
-        ClipboardHandling::DontModify
-    }
-}
-
-impl Default for AutoSubmitKey {
-    fn default() -> Self {
-        AutoSubmitKey::Enter
     }
 }
 
@@ -308,30 +288,25 @@ impl SoundTheme {
         }
     }
 
-    pub fn to_start_path(&self) -> String {
+    pub fn to_start_path(self) -> String {
         format!("resources/{}_start.wav", self.as_str())
     }
 
-    pub fn to_stop_path(&self) -> String {
+    pub fn to_stop_path(self) -> String {
         format!("resources/{}_stop.wav", self.as_str())
     }
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Type)]
+#[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Type, Default)]
 #[serde(rename_all = "snake_case")]
 pub enum TypingTool {
+    #[default]
     Auto,
     Wtype,
     Kwtype,
     Dotool,
     Ydotool,
     Xdotool,
-}
-
-impl Default for TypingTool {
-    fn default() -> Self {
-        TypingTool::Auto
-    }
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Type)]
@@ -897,9 +872,11 @@ fn load_settings_from_store(
                     let defaults = get_default_settings();
                     let mut updated = false;
                     for (key, value) in defaults.bindings {
-                        if !s.bindings.contains_key(&key) {
-                            debug!("Adding missing binding: {}", key);
-                            s.bindings.insert(key, value);
+                        if let std::collections::hash_map::Entry::Vacant(entry) =
+                            s.bindings.entry(key)
+                        {
+                            debug!("Adding missing binding: {}", entry.key());
+                            entry.insert(value);
                             updated = true;
                         }
                     }
@@ -1154,7 +1131,7 @@ mod tests {
     #[test]
     fn default_settings_overlay_position_is_valid() {
         let settings = get_default_settings();
-        let json = serde_json::to_value(&settings.overlay_position).unwrap();
+        let json = serde_json::to_value(settings.overlay_position).unwrap();
         assert!(
             json.is_string(),
             "overlay_position should serialize to a string variant"

@@ -637,7 +637,8 @@ fn spawn_save_transcription(
     action_key: Option<u8>,
     audio_format: crate::settings::AudioFormat,
 ) {
-    let _ = tauri::async_runtime::spawn(async move {
+    // Dropping the JoinHandle detaches the task; it still runs to completion.
+    drop(tauri::async_runtime::spawn(async move {
         if let Err(e) = hm
             .save_transcription(
                 samples,
@@ -651,7 +652,7 @@ fn spawn_save_transcription(
         {
             error!("Failed to save transcription to history: {}", e);
         }
-    });
+    }));
 }
 
 /// Paste the final text on the main thread, then hide the overlay and reset the tray icon.
@@ -932,6 +933,30 @@ impl ShortcutAction for TestAction {
     }
 }
 
+// Static Action Map
+pub static ACTION_MAP: Lazy<HashMap<String, Arc<dyn ShortcutAction>>> = Lazy::new(|| {
+    let mut map = HashMap::new();
+    map.insert(
+        "transcribe".to_string(),
+        Arc::new(TranscribeAction {
+            post_process: false,
+        }) as Arc<dyn ShortcutAction>,
+    );
+    map.insert(
+        "transcribe_with_post_process".to_string(),
+        Arc::new(TranscribeAction { post_process: true }) as Arc<dyn ShortcutAction>,
+    );
+    map.insert(
+        "cancel".to_string(),
+        Arc::new(CancelAction) as Arc<dyn ShortcutAction>,
+    );
+    map.insert(
+        "test".to_string(),
+        Arc::new(TestAction) as Arc<dyn ShortcutAction>,
+    );
+    map
+});
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1015,27 +1040,3 @@ mod tests {
         assert!(ACTION_MAP.contains_key("test"));
     }
 }
-
-// Static Action Map
-pub static ACTION_MAP: Lazy<HashMap<String, Arc<dyn ShortcutAction>>> = Lazy::new(|| {
-    let mut map = HashMap::new();
-    map.insert(
-        "transcribe".to_string(),
-        Arc::new(TranscribeAction {
-            post_process: false,
-        }) as Arc<dyn ShortcutAction>,
-    );
-    map.insert(
-        "transcribe_with_post_process".to_string(),
-        Arc::new(TranscribeAction { post_process: true }) as Arc<dyn ShortcutAction>,
-    );
-    map.insert(
-        "cancel".to_string(),
-        Arc::new(CancelAction) as Arc<dyn ShortcutAction>,
-    );
-    map.insert(
-        "test".to_string(),
-        Arc::new(TestAction) as Arc<dyn ShortcutAction>,
-    );
-    map
-});

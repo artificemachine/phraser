@@ -360,7 +360,7 @@ impl TranscriptionManager {
                     || settings
                         .gemini_api_key
                         .as_ref()
-                        .map_or(true, |k| k.is_empty())
+                        .is_none_or(|k| k.is_empty())
                 {
                     let error_msg = "Gemini API key not configured";
                     let _ = self.app_handle.emit(
@@ -572,7 +572,6 @@ impl TranscriptionManager {
                         LoadedEngine::Parakeet(parakeet_engine) => {
                             let params = ParakeetInferenceParams {
                                 timestamp_granularity: TimestampGranularity::Segment,
-                                ..Default::default()
                             };
                             parakeet_engine
                                 .transcribe_samples(audio, Some(params))
