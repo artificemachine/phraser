@@ -167,3 +167,6 @@
 - 2026-06-25: chore: remove personal workspace path from tracked files
 - 2026-07-11: fix: update stale celstnblacc GitHub references to artificemachine (docs, about page, releasing guide)
 - 2026-07-11: chore: bump version to 0.9.1, sync package.json with Cargo.toml/tauri.conf.json (was stale at 0.7.12)
+- 2026-08-27: feat: default long-audio model to Whisper Turbo for new installs, warn in settings when the configured model is not downloaded
+- 2026-08-27: fix: backfill 64 missing i18n keys for uk, zh, zh-TW — all 16 locales now complete
+- 2026-08-27: fix: mirror is_model_downloaded onto the CI mock TranscriptionManager

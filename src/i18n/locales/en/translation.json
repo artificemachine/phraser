@@ -149,7 +149,11 @@
       "thresholdLabel": "Duration threshold (seconds)",
       "thresholdDescription": "Switch to the long audio model when recording exceeds this duration.",
       "disabled": "Disabled",
-      "seconds": "{{value}}s"
+      "seconds": "{{value}}s",
+      "notDownloadedOption": "{{name}} (not downloaded)",
+      "notDownloadedWarning": "This model is not downloaded yet. Long recordings will keep using your current model until you download it.",
+      "downloadModel": "Download ({{size}} MB)",
+      "downloading": "Downloading..."
     },
     "general": {
       "title": "General",

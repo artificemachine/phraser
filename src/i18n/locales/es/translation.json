@@ -199,7 +199,11 @@
       "thresholdLabel": "Umbral de duración (segundos)",
       "thresholdDescription": "Cambia al modelo de audio largo cuando la grabación supera esta duración.",
       "seconds": "{{value}}s",
-      "disabled": "Deshabilitado"
+      "disabled": "Deshabilitado",
+      "notDownloadedOption": "{{name}} (no descargado)",
+      "notDownloadedWarning": "Este modelo aún no está descargado. Las grabaciones largas seguirán usando tu modelo actual hasta que lo descargues.",
+      "downloadModel": "Descargar ({{size}} MB)",
+      "downloading": "Descargando..."
     },
     "general": {
       "title": "General",

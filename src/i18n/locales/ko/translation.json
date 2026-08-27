@@ -264,7 +264,11 @@
       "modelDescription": "임계값보다 긴 녹음에 사용할 모델을 선택하세요.",
       "thresholdLabel": "지속 시간 임계값(초)",
       "thresholdDescription": "녹음이 이 시간을 초과하면 긴 오디오 모델로 전환합니다.",
-      "seconds": "{{value}}초"
+      "seconds": "{{value}}초",
+      "notDownloadedOption": "{{name}} (다운로드되지 않음)",
+      "notDownloadedWarning": "이 모델은 아직 다운로드되지 않았습니다. 다운로드할 때까지 긴 녹음에는 현재 모델이 계속 사용됩니다.",
+      "downloadModel": "다운로드 ({{size}} MB)",
+      "downloading": "다운로드 중..."
     },
     "advanced": {
       "title": "고급",

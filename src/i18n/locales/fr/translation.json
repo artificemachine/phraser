@@ -372,7 +372,11 @@
       "thresholdLabel": "Seuil de durée (secondes)",
       "thresholdDescription": "Basculer vers le modèle pour audio long lorsque l'enregistrement dépasse cette durée.",
       "seconds": "{{value}}s",
-      "disabled": "Désactivé"
+      "disabled": "Désactivé",
+      "notDownloadedOption": "{{name}} (non téléchargé)",
+      "notDownloadedWarning": "Ce modèle n'est pas encore téléchargé. Les enregistrements longs continueront d'utiliser votre modèle actuel jusqu'à ce que vous le téléchargiez.",
+      "downloadModel": "Télécharger ({{size}} Mo)",
+      "downloading": "Téléchargement..."
     },
     "postProcessing": {
       "title": "Post-traitement",

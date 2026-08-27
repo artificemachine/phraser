@@ -49,6 +49,13 @@ impl TranscriptionManager {
         None
     }
 
+    /// Mirrors the real manager's signature. Reports `true` to match this mock's
+    /// optimistic `load_model`, so callers that gate on availability are not
+    /// short-circuited during CI runs.
+    pub fn is_model_downloaded(&self, _model_id: &str) -> bool {
+        true
+    }
+
     pub fn transcribe(&self, _audio: Vec<f32>) -> Result<String> {
         Ok(String::new())
     }

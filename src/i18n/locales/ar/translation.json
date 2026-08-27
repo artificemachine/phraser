@@ -535,7 +535,11 @@
       "thresholdLabel": "حد المدة (بالثواني)",
       "thresholdDescription": "التبديل إلى نموذج التسجيلات الطويلة عندما يتجاوز التسجيل هذه المدة.",
       "disabled": "معطل",
-      "seconds": "{{value}} ث"
+      "seconds": "{{value}} ث",
+      "notDownloadedOption": "{{name}} (غير مُنزَّل)",
+      "notDownloadedWarning": "لم يتم تنزيل هذا النموذج بعد. ستستمر التسجيلات الطويلة في استخدام النموذج الحالي حتى تقوم بتنزيله.",
+      "downloadModel": "تنزيل ({{size}} ميجابايت)",
+      "downloading": "جارٍ التنزيل..."
     },
     "models": {
       "title": "نماذج النسخ",

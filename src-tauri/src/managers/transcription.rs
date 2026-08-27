@@ -433,6 +433,14 @@ impl TranscriptionManager {
         current_model.clone()
     }
 
+    /// Whether `model_id` is known and its weights are present on disk.
+    /// Unknown model ids report `false` rather than erroring.
+    pub fn is_model_downloaded(&self, model_id: &str) -> bool {
+        self.model_manager
+            .get_model_info(model_id)
+            .is_some_and(|info| info.is_downloaded)
+    }
+
     pub fn transcribe(&self, audio: Vec<f32>) -> Result<String> {
         // Update last activity timestamp
         self.last_activity.store(

@@ -544,7 +544,11 @@
       "modelDescription": "Seleziona un modello da usare per le registrazioni più lunghe della soglia.",
       "thresholdLabel": "Soglia di durata (secondi)",
       "thresholdDescription": "Passa al modello per audio lunghi quando la registrazione supera questa durata.",
-      "seconds": "{{value}}s"
+      "seconds": "{{value}}s",
+      "notDownloadedOption": "{{name}} (non scaricato)",
+      "notDownloadedWarning": "Questo modello non è ancora stato scaricato. Le registrazioni lunghe continueranno a usare il modello attuale finché non lo scarichi.",
+      "downloadModel": "Scarica ({{size}} MB)",
+      "downloading": "Download in corso..."
     },
     "about": {
       "title": "Informazioni",

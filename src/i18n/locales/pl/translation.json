@@ -472,7 +472,11 @@
       "thresholdLabel": "Próg czasu trwania (sekundy)",
       "thresholdDescription": "Przełącz na model dla długich nagrań, gdy nagranie przekroczy ten czas trwania.",
       "seconds": "{{value}} s",
-      "disabled": "Wyłączone"
+      "disabled": "Wyłączone",
+      "notDownloadedOption": "{{name}} (niepobrany)",
+      "notDownloadedWarning": "Ten model nie został jeszcze pobrany. Długie nagrania będą nadal używać bieżącego modelu, dopóki go nie pobierzesz.",
+      "downloadModel": "Pobierz ({{size}} MB)",
+      "downloading": "Pobieranie..."
     },
     "debug": {
       "title": "Debugowanie",
