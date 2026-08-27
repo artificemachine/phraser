@@ -186,3 +186,4 @@
 - 2026-08-27: chore: bump version to 0.10.1 (security + CI work in PRs #21-#26, no behavior change)
 - 2026-08-27: fix: repoint the updater endpoint from the dead newblacc org to artificemachine (auto-update returned 404 since the org move)
 - 2026-08-27: chore: bump version to 0.10.2
+- 2026-08-27: docs: add the release-phase session handoff (v0.10.1, v0.10.2, dead updater endpoint)
