@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
+/* Vendored from geist 1.7.2, SIL OFL 1.1. See assets/fonts/GeistPixel-Circle.LICENSE.txt.
+   The npm package peer-depends on next, which pulled in 155 MB of Next.js and
+   sharp to serve this one 28 KB file. */
 @font-face {
   font-family: "Geist Pixel Circle";
-  src: url("../node_modules/geist/dist/fonts/geist-pixel/GeistPixel-Circle.woff2")
-    format("woff2");
+  src: url("./assets/fonts/GeistPixel-Circle.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;

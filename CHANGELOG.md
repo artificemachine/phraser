@@ -181,3 +181,4 @@
 - 2026-08-27: security: targeted cargo update (h2, quick-xml, quinn-proto, rustls-webpki, tar) taking cargo audit from 14 to 5
 - 2026-08-27: fix: translate the two hardcoded ProgressBar strings across all 16 locales
 - 2026-08-27: chore: exclude AGENTS.md and CLAUDE.md from prettier (3.9+ escapes bare ~ as ~~)
+- 2026-08-27: chore: vendor the Geist Pixel woff2 and drop the geist dependency, removing Next.js and sharp (327 MB of node_modules)
