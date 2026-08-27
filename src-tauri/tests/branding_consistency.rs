@@ -63,9 +63,12 @@ fn tauri_conf_updater_endpoint_uses_phraser() {
     let endpoint = tauri_conf()["plugins"]["updater"]["endpoints"][0]
         .as_str()
         .unwrap();
+    // The owner matters, not just the repo name. The endpoint sat on the old
+    // `newblacc` org for months after the move and returned 404, silently
+    // breaking auto-update, because this assertion only checked "/phraser/".
     assert!(
-        endpoint.contains("/phraser/"),
-        "Updater endpoint should reference phraser repo, got: {}",
+        endpoint.contains("artificemachine/phraser"),
+        "Updater endpoint should point at artificemachine/phraser, got: {}",
         endpoint
     );
 }

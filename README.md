@@ -50,7 +50,7 @@ The process is entirely local:
 
 ### Installation
 
-1. Download the latest release from the [releases page](https://github.com/newblacc/phraser/releases)
+1. Download the latest release from the [releases page](https://github.com/artificemachine/phraser/releases)
 2. Install the application
 3. Launch phraser and grant necessary system permissions (microphone, accessibility)
 4. Configure your preferred keyboard shortcuts in Settings
@@ -159,7 +159,7 @@ phraser --start-hidden --no-tray
 
 ## Known Issues & Current Limitations
 
-This project is actively being developed and has some [known issues](https://github.com/newblacc/phraser/issues). We believe in transparency about the current state:
+This project is actively being developed and has some [known issues](https://github.com/artificemachine/phraser/issues). We believe in transparency about the current state:
 
 ### Major Issues (Help Wanted)
 
@@ -423,11 +423,11 @@ phraser can auto-discover custom Whisper GGML models placed in the `models` dire
 
 ### How to Contribute
 
-1. **Check existing issues** at [github.com/newblacc/phraser/issues](https://github.com/newblacc/phraser/issues)
+1. **Check existing issues** at [github.com/artificemachine/phraser/issues](https://github.com/artificemachine/phraser/issues)
 2. **Fork the repository** and create a feature branch
 3. **Test thoroughly** on your target platform
 4. **Submit a pull request** with clear description of changes
-5. **Join the discussion** on [GitHub Issues](https://github.com/newblacc/phraser/issues)
+5. **Join the discussion** on [GitHub Issues](https://github.com/artificemachine/phraser/issues)
 
 The goal is to create both a useful tool and a foundation for others to build upon—a well-patterned, simple codebase that serves the community.
 
