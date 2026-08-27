@@ -1,0 +1,2 @@
+# Vendored web fonts. See src/App.css and the .LICENSE.txt beside each file.
+src/assets/fonts/*.woff2

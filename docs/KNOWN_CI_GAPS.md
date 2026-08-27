@@ -85,14 +85,19 @@ handle local files (clipboard protocol descriptions, `Info.plist`), not remote
 attacker input. They clear when Tauri and `rust_decimal` bump their own
 dependencies.
 
-### Still worth doing
+### Vendored the font, dropped `geist` (2026-08-27)
 
-Drop `geist` and vendor its woff2 into `src/assets/fonts/` with the SIL OFL 1.1
-notice. `geist@1.7.0` peer-declares `next: >=13.2.0`, so bun installs Next.js
-(155 MB) and `sharp` to serve exactly one `@font-face` in `src/App.css:5`
-loading a 28 KB file. Nothing imports it. Removing it deletes the entire
-Next.js advisory surface; without it, the next Next.js CVE re-reds this job for
-a font.
+`geist@1.7.2` peer-declares `next: >=13.2.0`, so bun installed Next.js and
+`sharp` to serve exactly one `@font-face` in `src/App.css` loading a 28 KB
+woff2. That single dependency accounted for 28 of the original 42 bun
+advisories, and would have re-reddened this job on the next Next.js CVE.
+
+The woff2 is now vendored in `src/assets/fonts/` alongside its SIL OFL 1.1
+notice, and `geist` is gone from `package.json`. `node_modules` drops from
+575 MB to 248 MB and `next`, `geist` and `sharp` leave the tree entirely.
+
+Fonts are blocked by the global pre-commit binary guard, so
+`.allow-binary-paths` allowlists `src/assets/fonts/*.woff2`.
 
 ---
 
