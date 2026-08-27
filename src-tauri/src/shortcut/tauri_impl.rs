@@ -7,7 +7,10 @@ use log::{error, warn};
 use tauri::AppHandle;
 use tauri_plugin_global_shortcut::{GlobalShortcutExt, Shortcut, ShortcutState};
 
-use crate::settings::{self, get_settings, ShortcutBinding};
+use crate::settings::{self, ShortcutBinding};
+// Only the non-Linux cancel/action shortcut paths read settings.
+#[cfg(not(target_os = "linux"))]
+use crate::settings::get_settings;
 
 use super::handler::handle_shortcut_event;
 

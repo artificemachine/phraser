@@ -368,6 +368,8 @@ pub fn run(cli_args: CliArgs) {
         )
         .expect("Failed to export typescript bindings");
 
+    // Only the macOS branch below reassigns this.
+    #[cfg_attr(not(target_os = "macos"), allow(unused_mut))]
     let mut builder = tauri::Builder::default()
         .device_event_filter(tauri::DeviceEventFilter::Always)
         .plugin(tauri_plugin_dialog::init())
@@ -471,12 +473,13 @@ pub fn run(cli_args: CliArgs) {
                 api.prevent_close();
                 let _res = window.hide();
 
-                let settings = get_settings(window.app_handle());
-                let tray_visible =
-                    settings.show_tray_icon && !window.app_handle().state::<CliArgs>().no_tray;
-
+                // Only the macOS dock-policy branch below reads this.
                 #[cfg(target_os = "macos")]
                 {
+                    let settings = get_settings(window.app_handle());
+                    let tray_visible =
+                        settings.show_tray_icon && !window.app_handle().state::<CliArgs>().no_tray;
+
                     if tray_visible {
                         // Tray is available: hide the dock icon, app lives in the tray
                         let res = window
