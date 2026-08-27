@@ -173,3 +173,4 @@
 - 2026-08-27: docs: add docs/KNOWN_CI_GAPS.md tracking the L1 dependency-audit and L3 Vulkan CI failures
 - 2026-08-27: fix: install Vulkan toolchain on the L3 SAST runner so cargo clippy can build whisper-rs-sys
 - 2026-08-27: chore: clear all 41 clippy lints in src-tauri so the L3 SAST clippy step can pass
+- 2026-08-27: chore: drop 6 dead returns in Linux-only shortcut guards (needless_return)
