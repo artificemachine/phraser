@@ -75,6 +75,10 @@
       "sense-voice-int8": {
         "name": "SenseVoice",
         "description": "非常快速。支持中文、英语、日语、韩语、粤语。"
+      },
+      "gemini-api": {
+        "name": "Gemini API",
+        "description": "通过 Google Gemini 进行云端转录。需要 API 密钥和网络连接。"
       }
     },
     "errors": {
@@ -153,7 +157,27 @@
       },
       "noModelsMatch": "没有符合此筛选条件的模型。",
       "yourModels": "已下载的模型",
-      "availableModels": "可供下载"
+      "availableModels": "可供下载",
+      "tabs": {
+        "transcription": "转录",
+        "processing": "处理"
+      },
+      "processingModels": {
+        "title": "处理模型",
+        "description": "保存 LLM 模型以用于后处理操作。",
+        "noModels": "尚未保存任何处理模型。添加一个即可在操作中使用。",
+        "addModel": "添加处理模型",
+        "provider": "提供商",
+        "baseUrl": "服务器地址",
+        "apiKey": "API 密钥",
+        "apiKeyPlaceholder": "输入 API 密钥",
+        "model": "模型",
+        "modelPlaceholder": "选择或输入模型",
+        "save": "保存",
+        "cancel": "取消",
+        "fetchModels": "获取模型",
+        "alreadySaved": "该模型已保存。"
+      }
     },
     "general": {
       "title": "通用",
@@ -227,7 +251,8 @@
         "output": "输出",
         "transcription": "转录",
         "history": "历史",
-        "experimental": "实验性"
+        "experimental": "实验性",
+        "cloudModels": "云端模型"
       },
       "audioFormat": {
         "title": "录音格式",
@@ -385,6 +410,29 @@
         "cancel": "取消",
         "selectToEdit": "选择上方的提示词以查看和编辑其详细信息。",
         "createFirst": "点击上方的「创建新提示词」来创建您的第一个后处理提示词。"
+      },
+      "actions": {
+        "title": "操作",
+        "description": "将 Ctrl+数字键（1-9）绑定到自定义提示词。录音时按下快捷键即可在转录后应用该操作。",
+        "noActions": "尚未配置任何操作。",
+        "createFirst": "创建第一个操作，使用已配置的提供商处理转录内容。",
+        "addAction": "添加操作",
+        "editAction": "编辑操作",
+        "key": "按键",
+        "keyLabel": "按键（1-9）",
+        "name": "名称",
+        "namePlaceholder": "例如：邮件模式",
+        "prompt": "提示词",
+        "promptPlaceholder": "例如：将此内容格式化为一封专业邮件，包含问候语和落款。段落之间添加换行。",
+        "promptTip": "提示：使用 <code>${output}</code> 在提示词中插入转录文本。",
+        "model": "模型（可选）",
+        "modelPlaceholder": "选择模型",
+        "modelTip": "为此操作选择特定模型，或使用 API 部分的默认模型。",
+        "defaultModel": "默认",
+        "save": "保存",
+        "cancel": "取消",
+        "delete": "删除",
+        "maxActionsReached": "已达到最多 9 个操作的上限。"
       }
     },
     "history": {
@@ -396,7 +444,13 @@
       "save": "保存转录",
       "unsave": "从已保存中移除",
       "delete": "删除条目",
-      "deleteError": "删除条目失败，请重试。"
+      "deleteError": "删除条目失败，请重试。",
+      "reprocess": "使用其他模型重新处理",
+      "reprocessing": "正在重新处理...",
+      "selectModel": "选择模型",
+      "originalTranscript": "原文",
+      "postProcessed": "已后处理",
+      "action": "操作 {{key}}"
     },
     "debug": {
       "title": "调试",
@@ -503,7 +557,27 @@
       "notDownloadedOption": "{{name}}（未下载）",
       "notDownloadedWarning": "此模型尚未下载。在您下载之前，长录音将继续使用当前模型。",
       "downloadModel": "下载（{{size}} MB）",
-      "downloading": "下载中..."
+      "downloading": "下载中...",
+      "title": "长音频模型",
+      "description": "当录音时长超过阈值时自动切换到其他模型。",
+      "modelLabel": "长录音使用的模型",
+      "modelDescription": "选择用于超过阈值的录音的模型。",
+      "thresholdLabel": "时长阈值（秒）",
+      "thresholdDescription": "当录音超过此时长时切换到长音频模型。",
+      "disabled": "已禁用",
+      "seconds": "{{value}} 秒"
+    },
+    "gemini": {
+      "title": "Gemini API",
+      "description": "使用 Google Gemini API 进行云端转录。需要 API 密钥。",
+      "apiKey": "API 密钥",
+      "apiKeyPlaceholder": "输入您的 Gemini API 密钥",
+      "model": "模型",
+      "modelDescription": "选择用于转录的 Gemini 模型",
+      "apiKeyRequired": "需要 API 密钥",
+      "apiKeyRequiredDescription": "输入您的 Google Gemini API 密钥以使用云端转录。",
+      "save": "保存",
+      "cancel": "取消"
     }
   },
   "footer": {
