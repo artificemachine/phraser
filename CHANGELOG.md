@@ -171,3 +171,4 @@
 - 2026-08-27: fix: backfill 64 missing i18n keys for uk, zh, zh-TW — all 16 locales now complete
 - 2026-08-27: fix: mirror is_model_downloaded onto the CI mock TranscriptionManager
 - 2026-08-27: docs: add docs/KNOWN_CI_GAPS.md tracking the L1 dependency-audit and L3 Vulkan CI failures
+- 2026-08-27: fix: install Vulkan toolchain on the L3 SAST runner so cargo clippy can build whisper-rs-sys
