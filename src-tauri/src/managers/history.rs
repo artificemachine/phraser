@@ -48,6 +48,18 @@ pub struct HistoryEntry {
     pub post_process_action_key: Option<u8>,
 }
 
+/// Column values for one `transcription_history` insert. Grouped into a struct so
+/// the four adjacent optional text fields cannot be passed in the wrong order.
+struct NewHistoryRow {
+    file_name: String,
+    timestamp: i64,
+    title: String,
+    transcription_text: String,
+    post_processed_text: Option<String>,
+    post_process_prompt: Option<String>,
+    post_process_action_key: Option<u8>,
+}
+
 pub struct HistoryManager {
     app_handle: AppHandle,
     recordings_dir: PathBuf,
@@ -232,7 +244,7 @@ impl HistoryManager {
         }
 
         // Save to database
-        self.save_to_database(
+        self.save_to_database(NewHistoryRow {
             file_name,
             timestamp,
             title,
@@ -240,7 +252,7 @@ impl HistoryManager {
             post_processed_text,
             post_process_prompt,
             post_process_action_key,
-        )?;
+        })?;
 
         // Clean up old entries
         self.cleanup_old_entries()?;
@@ -253,20 +265,20 @@ impl HistoryManager {
         Ok(())
     }
 
-    fn save_to_database(
-        &self,
-        file_name: String,
-        timestamp: i64,
-        title: String,
-        transcription_text: String,
-        post_processed_text: Option<String>,
-        post_process_prompt: Option<String>,
-        post_process_action_key: Option<u8>,
-    ) -> Result<()> {
+    fn save_to_database(&self, row: NewHistoryRow) -> Result<()> {
         let conn = self.get_connection()?;
         conn.execute(
             "INSERT INTO transcription_history (file_name, timestamp, saved, title, transcription_text, post_processed_text, post_process_prompt, post_process_action_key) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)",
-            params![file_name, timestamp, false, title, transcription_text, post_processed_text, post_process_prompt, post_process_action_key.map(|k| k as i64)],
+            params![
+                row.file_name,
+                row.timestamp,
+                false,
+                row.title,
+                row.transcription_text,
+                row.post_processed_text,
+                row.post_process_prompt,
+                row.post_process_action_key.map(|k| k as i64)
+            ],
         )?;
 
         debug!("Saved transcription to database");
@@ -279,16 +291,16 @@ impl HistoryManager {
         match retention_period {
             crate::settings::RecordingRetentionPeriod::Never => {
                 // Don't delete anything
-                return Ok(());
+                Ok(())
             }
             crate::settings::RecordingRetentionPeriod::PreserveLimit => {
                 // Use the old count-based logic with history_limit
                 let limit = crate::settings::get_history_limit(&self.app_handle);
-                return self.cleanup_by_count(limit);
+                self.cleanup_by_count(limit)
             }
             _ => {
                 // Use time-based logic
-                return self.cleanup_by_time(retention_period);
+                self.cleanup_by_time(retention_period)
             }
         }
     }

@@ -20,6 +20,7 @@ use crate::utils::{is_kde_wayland, is_wayland};
 const ELECTRON_CLIPBOARD_SETTLE_MS: u64 = 250;
 
 /// Time (ms) to wait after AppleScript paste before restoring the clipboard.
+#[cfg(target_os = "macos")]
 const APPLESCRIPT_CLIPBOARD_SETTLE_MS: u64 = 300;
 
 /// Release common modifier keys before paste/submit.

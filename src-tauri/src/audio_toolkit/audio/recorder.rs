@@ -287,12 +287,8 @@ fn run_consumer(
         }
     }
 
-    loop {
-        let raw = match sample_rx.recv() {
-            Ok(s) => s,
-            Err(_) => break, // stream closed
-        };
-
+    // `recv` only errors once the stream is closed, which ends the loop.
+    while let Ok(raw) = sample_rx.recv() {
         // ---------- spectrum processing ---------------------------------- //
         if let Some(buckets) = visualizer.feed(&raw) {
             if let Some(cb) = &level_cb {
