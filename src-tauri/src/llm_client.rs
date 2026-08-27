@@ -6,8 +6,8 @@ use serde_json::Value;
 use std::time::Duration;
 
 const REQUEST_TIMEOUT_SECS: u64 = 30;
-const PHRASER_USER_AGENT: &str = "phraser/1.0 (+https://github.com/newblacc/phraser)";
-const PHRASER_REFERER: &str = "https://github.com/newblacc/phraser";
+const PHRASER_USER_AGENT: &str = "phraser/1.0 (+https://github.com/artificemachine/phraser)";
+const PHRASER_REFERER: &str = "https://github.com/artificemachine/phraser";
 const ANTHROPIC_API_VERSION: &str = "2023-06-01";
 
 #[derive(Debug, Serialize)]
