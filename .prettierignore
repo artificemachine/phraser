@@ -15,6 +15,15 @@ src-tauri/gen
 # Generated files
 src/bindings.ts
 
+# Agent instruction files.
+# Prettier 3.9+ escapes a bare tilde in Markdown by doubling it, so a
+# home-relative path written as a bare tilde gets mangled. Two of those on one
+# line then render as GFM strikethrough, meaning the "fix" corrupts the text.
+# These files are also protected from automated edits by repo policy, so they
+# are excluded rather than rewritten.
+AGENTS.md
+CLAUDE.md
+
 # Misc
 .DS_Store
 *.log

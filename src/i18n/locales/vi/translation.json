@@ -614,7 +614,9 @@
     "off": "Tắt",
     "yes": "Có",
     "no": "Không",
-    "noOptionsFound": "Không tìm thấy tùy chọn"
+    "noOptionsFound": "Không tìm thấy tùy chọn",
+    "downloading": "Đang tải xuống...",
+    "downloadingCount": "Đang tải {{count}}..."
   },
   "accessibility": {
     "permissionsRequired": "Cần quyền truy cập",

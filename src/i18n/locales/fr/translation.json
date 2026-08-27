@@ -614,7 +614,9 @@
     "off": "Désactivé",
     "yes": "Oui",
     "no": "Non",
-    "noOptionsFound": "Aucune option trouvée"
+    "noOptionsFound": "Aucune option trouvée",
+    "downloading": "Téléchargement...",
+    "downloadingCount": "{{count}} en téléchargement..."
   },
   "accessibility": {
     "permissionsRequired": "Autorisations d'accessibilité requises",

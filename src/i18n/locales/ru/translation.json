@@ -614,7 +614,9 @@
     "off": "Выключенный",
     "yes": "Да",
     "no": "Нет",
-    "noOptionsFound": "Вариантов не найдено"
+    "noOptionsFound": "Вариантов не найдено",
+    "downloading": "Загрузка...",
+    "downloadingCount": "Загружается: {{count}}..."
   },
   "accessibility": {
     "permissionsRequired": "Требуются разрешения на доступ",
