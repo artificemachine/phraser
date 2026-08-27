@@ -4,9 +4,18 @@ Standing CI failures that are **not** caused by any single PR. They fail on ever
 pull request, which trains reviewers to ignore a red board. This file exists
 because GitHub Issues is disabled on this repository.
 
+Resolved sections are kept rather than deleted — the L3 entry below took three
+PRs precisely because each layer was invisible until the one above it was fixed,
+and that is the part worth remembering.
+
+| Gap                                             | Status                              |
+| ----------------------------------------------- | ----------------------------------- |
+| L1 Dependency Risk (`bun audit`, 42 advisories) | open, fail-open                     |
+| L3 SAST (`cargo clippy` on Linux)               | **resolved 2026-08-27**, now gating |
+
 Last verified: 2026-08-27, against run
-[33076277512](https://github.com/artificemachine/phraser/actions/runs/33076277512)
-(PR #19).
+[33087094264](https://github.com/artificemachine/phraser/actions/runs/33087094264)
+(PR #22).
 
 ---
 
@@ -98,27 +107,29 @@ for a font file.
 
 ---
 
-## L3 SAST — `cargo clippy` fails on the Linux runner (Vulkan not found)
+## L3 SAST — RESOLVED 2026-08-27
 
 **Job:** `security.yml` → `L3 SAST` → step `Rust clippy`
-**Blocking:** no — the job sets `continue-on-error: true`, so it does not gate a
-merge. It still reports as `fail` in `gh pr checks`, which is the misleading part.
+**Blocking:** yes, as of PR #23 — `continue-on-error: true` has been removed now
+that the step genuinely passes.
 
-The build of `whisper-rs-sys` panics while configuring `whisper.cpp`:
+First green Linux run:
+[33087094264](https://github.com/artificemachine/phraser/actions/runs/33087094264)
+(PR #22, `Rust clippy` = success).
+
+This gap had three layers, each hidden behind the one in front of it. Only
+fixing one exposed the next, so it took three PRs to clear.
+
+### Layer 1 — the build script panicked before clippy ran (PR #21)
 
 ```
 Could NOT find Vulkan
-thread 'main' panicked at cmake-0.1.54/src/lib.rs:1119:5:
-command did not execute successfully, got: exit status: 1
-build script failed, must exit now
+thread 'main' panicked at cmake-0.1.54/src/lib.rs:1119:5
 ```
 
-**History:** this gap was uncovered on 2026-07-11 while fixing an earlier
-`glib-2.0` failure in the same job. Installing the GTK/webkit system deps got
-clippy past `glib-2.0` and revealed this deeper one. It has been unfixed since.
-
-**Why it happens:** `transcribe-rs` enables `whisper-rs`'s `vulkan` feature
-unconditionally on Linux. From `transcribe-rs-0.2.5/Cargo.toml`:
+`transcribe-rs` enables `whisper-rs`'s `vulkan` feature unconditionally on
+Linux, via its own target-specific declaration in
+`transcribe-rs-0.2.5/Cargo.toml`:
 
 ```toml
 [target.'cfg(target_os = "linux")'.dependencies.whisper-rs]
@@ -127,36 +138,39 @@ features = ["vulkan"]
 optional = true
 ```
 
-`whisper-rs-sys/build.rs` then gates its cmake config on that feature
-(`if cfg!(feature = "vulkan") { config.define("GGML_VULKAN", "ON"); }`), which
-makes `find_package(Vulkan)` mandatory. The runner installs GTK/webkit deps but
-no Vulkan toolchain, so the build script panics before clippy ever runs.
+`whisper-rs-sys/build.rs` gates its cmake config on that feature, which makes
+`find_package(Vulkan)` mandatory. No clippy flag can turn it off. Fixed by
+installing the LunarG Vulkan SDK on the runner, reusing the block already
+proven in `build.yml`.
 
-> **Correction (2026-08-27):** an earlier revision of this file blamed
-> `cargo clippy --all-features` and recommended dropping that flag. That was
-> wrong. `src-tauri/Cargo.toml` has no `[features]` section at all, so
-> `--all-features` is effectively a no-op for this crate — removing it would not
-> have fixed anything. The Vulkan feature comes from the dependency's own
-> target-specific declaration, which no clippy flag can turn off.
+Uncovered 2026-07-11 while fixing an earlier `glib-2.0` failure in the same
+job; unfixed until 2026-08-27.
 
-**Fix:** install the Vulkan SDK on the runner, reusing the block already proven to
-work in `build.yml` ("Prepare Vulkan SDK for Ubuntu 24.04") rather than guessing
-at individual apt packages:
+### Layer 2 — 47 clippy lints nobody had ever compiled (PR #22)
 
-```yaml
-- name: Install Vulkan SDK
-  run: |
-    wget -qO- https://packages.lunarg.com/lunarg-signing-key-pub.asc | sudo tee /etc/apt/trusted.gpg.d/lunarg.asc
-    sudo wget -qO /etc/apt/sources.list.d/lunarg-vulkan-1.3.290-noble.list https://packages.lunarg.com/vulkan/1.3.290/lunarg-vulkan-1.3.290-noble.list
-    sudo apt update
-    sudo apt install vulkan-sdk -y
+With the panic gone, clippy ran for the first time and `-D warnings` promoted
+47 violations to errors. None came from PR #21; the code had simply never been
+linted on Linux. 41 reproduce on macOS, 6 were Linux-only.
+
+Worth knowing for next time: `cargo clippy --fix` was silently rolling back the
+**entire** batch because two of its own suggestions do not compile —
+`map_entry` moves a key before a later borrow, and `manual_inspect` leaves an
+unused binding. Excluding those two with `-A` let the other 32 apply.
+
+### Layer 3 — 6 rustc warnings underneath the lints (PR #22)
+
+Clearing the lints revealed a further 6 plain rustc warnings (`unused_imports`,
+`unused_mut`, `unused_variables`, `dead_code`), each a symbol whose only use
+sits inside a macOS-gated block. Fixed by narrowing each declaration to the
+platform that already used it.
+
+### Checking this job in future
+
+`gh pr checks` now reports L3 honestly, since the job gates. Before PR #23 it
+could report `pass` while the `Rust clippy` step inside it had failed. If that
+flag is ever restored, check the step, not the job:
+
 ```
-
-The only alternative would be patching or forking `transcribe-rs` to make the
-Linux Vulkan backend optional, which is far more invasive than paying the
-install cost in CI.
-
-**Do not** consider this fixed just because the job is green-by-default; check
-that the `Rust clippy` step itself succeeds, not only that the job passed via
-`continue-on-error`. Once the step is genuinely passing, that
-`continue-on-error: true` should be removed so the job actually gates.
+gh run view <run-id> --json jobs \
+  -q '.jobs[] | select(.name|test("L3")) | .steps[] | "\(.conclusion)\t\(.name)"'
+```
