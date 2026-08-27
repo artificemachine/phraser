@@ -18,7 +18,14 @@ if [ "$(uname -s)" = "Darwin" ] && command -v xattr >/dev/null 2>&1; then
   xattr -cr "$ROOT_DIR/src-tauri/resources" 2>/dev/null || true
 fi
 
-TAURI_CONFIG="src-tauri/tauri.local.unsigned.conf.json"
+# Local builds have no updater signing key, so this overlay turns off updater
+# artifact generation. Everything else comes from src-tauri/tauri.conf.json,
+# whose macOS signingIdentity is already "-" (ad-hoc, no certificate needed).
+TAURI_CONFIG="src-tauri/tauri.unsigned.conf.json"
+if [ ! -f "$ROOT_DIR/$TAURI_CONFIG" ]; then
+  echo "Error: missing $TAURI_CONFIG" >&2
+  exit 1
+fi
 bun run tauri build --config "$TAURI_CONFIG" "$@"
 
 APP_PATH="src-tauri/target/release/bundle/macos/phraser.app"

@@ -175,3 +175,5 @@
 - 2026-08-27: chore: clear all 41 clippy lints in src-tauri so the L3 SAST clippy step can pass
 - 2026-08-27: chore: drop 6 dead returns in Linux-only shortcut guards (needless_return)
 - 2026-08-27: chore: gate 6 Linux-only unused imports/vars/const behind cfg so clippy -D warnings passes on Linux
+- 2026-08-27: chore: L3 SAST now gates (continue-on-error removed) after cargo clippy passed on Linux for the first time
+- 2026-08-27: fix: add the missing src-tauri/tauri.unsigned.conf.json so bun run app:create works
