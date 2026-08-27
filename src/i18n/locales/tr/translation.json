@@ -472,7 +472,11 @@
       "thresholdLabel": "Süre eşiği (saniye)",
       "thresholdDescription": "Kayıt bu süreyi aştığında uzun ses modeline geçer.",
       "seconds": "{{value}}sn",
-      "disabled": "Devre Dışı"
+      "disabled": "Devre Dışı",
+      "notDownloadedOption": "{{name}} (indirilmedi)",
+      "notDownloadedWarning": "Bu model henüz indirilmedi. Siz indirene kadar uzun kayıtlar mevcut modelinizi kullanmaya devam edecek.",
+      "downloadModel": "İndir ({{size}} MB)",
+      "downloading": "İndiriliyor..."
     },
     "debug": {
       "title": "Hata Ayıklama",

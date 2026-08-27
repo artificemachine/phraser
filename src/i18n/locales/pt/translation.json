@@ -241,7 +241,11 @@
       "thresholdLabel": "Limite de duração (segundos)",
       "thresholdDescription": "Alternar para o modelo de áudio longo quando a gravação exceder esta duração.",
       "seconds": "{{value}}s",
-      "disabled": "Desabilitado"
+      "disabled": "Desabilitado",
+      "notDownloadedOption": "{{name}} (não baixado)",
+      "notDownloadedWarning": "Este modelo ainda não foi baixado. As gravações longas continuarão usando o seu modelo atual até que você o baixe.",
+      "downloadModel": "Baixar ({{size}} MB)",
+      "downloading": "Baixando..."
     },
     "sound": {
       "title": "Som",

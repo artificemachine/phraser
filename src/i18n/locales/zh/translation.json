@@ -498,6 +498,12 @@
           "details": "phraser 使用 Whisper.cpp 进行快速的本地语音转文字处理。感谢 Georgi Gerganov 和贡献者们的出色工作。"
         }
       }
+    },
+    "longAudioModel": {
+      "notDownloadedOption": "{{name}}（未下载）",
+      "notDownloadedWarning": "此模型尚未下载。在您下载之前，长录音将继续使用当前模型。",
+      "downloadModel": "下载（{{size}} MB）",
+      "downloading": "下载中..."
     }
   },
   "footer": {

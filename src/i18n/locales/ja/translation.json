@@ -199,7 +199,11 @@
       "thresholdLabel": "しきい値（秒）",
       "thresholdDescription": "録音がこの時間を超えると、長時間録音モデルに切り替えます。",
       "seconds": "{{value}}秒",
-      "disabled": "無効"
+      "disabled": "無効",
+      "notDownloadedOption": "{{name}}（未ダウンロード）",
+      "notDownloadedWarning": "このモデルはまだダウンロードされていません。ダウンロードするまで、長い録音では現在のモデルが使用されます。",
+      "downloadModel": "ダウンロード（{{size}} MB）",
+      "downloading": "ダウンロード中..."
     },
     "general": {
       "title": "一般",

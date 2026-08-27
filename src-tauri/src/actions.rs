@@ -508,6 +508,24 @@ async fn maybe_convert_chinese_variant(
 /// Switch to the long-audio model if the recording duration exceeds the configured threshold.
 /// Returns `Some(original_model_id)` if the switch succeeded (caller must restore afterward),
 /// or `None` if no switch was needed or the switch failed.
+/// Pure decision half of [`maybe_switch_model_for_long_audio`]: returns the model
+/// to switch to, or `None` when the current model should be kept. Split out so the
+/// threshold logic is testable without a live `TranscriptionManager`.
+fn long_audio_switch_target<'a>(
+    current_model: Option<&str>,
+    long_audio_model: Option<&'a str>,
+    duration_seconds: f32,
+    threshold_seconds: f32,
+) -> Option<&'a str> {
+    let long_model_id = long_audio_model?;
+
+    if duration_seconds <= threshold_seconds || current_model == Some(long_model_id) {
+        return None;
+    }
+
+    Some(long_model_id)
+}
+
 fn maybe_switch_model_for_long_audio(
     tm: &TranscriptionManager,
     settings: &AppSettings,
@@ -516,11 +534,23 @@ fn maybe_switch_model_for_long_audio(
     let original_model = tm.get_current_model();
     let duration_seconds = sample_count as f32 / SAMPLE_RATE_HZ;
 
-    let long_model_id = settings.long_audio_model.as_ref()?;
+    let long_model_id = long_audio_switch_target(
+        original_model.as_deref(),
+        settings.long_audio_model.as_deref(),
+        duration_seconds,
+        settings.long_audio_threshold_seconds,
+    )?;
 
-    if duration_seconds <= settings.long_audio_threshold_seconds
-        || original_model.as_deref() == Some(long_model_id.as_str())
-    {
+    // New installs default `long_audio_model` to Whisper Turbo, which the user may
+    // never have downloaded. Check before loading so the miss is reported once here
+    // instead of surfacing as an opaque load failure on every long recording.
+    if !tm.is_model_downloaded(long_model_id) {
+        warn!(
+            "Long audio model '{}' is configured but not downloaded; \
+             staying on the current model. Download it in Settings > Models, \
+             or set Long Audio Model to Disabled.",
+            long_model_id
+        );
         return None;
     }
 
@@ -927,6 +957,54 @@ mod tests {
         assert!(!is_phraser_bundle_id("com.apple.safari"));
         assert!(!is_phraser_bundle_id("com.newblacc.other"));
         assert!(!is_phraser_bundle_id(""));
+    }
+
+    #[test]
+    fn long_audio_target_none_when_feature_disabled() {
+        assert_eq!(
+            long_audio_switch_target(Some("parakeet-tdt-0.6b-v3"), None, 60.0, 15.0),
+            None
+        );
+    }
+
+    #[test]
+    fn long_audio_target_none_below_threshold() {
+        assert_eq!(
+            long_audio_switch_target(Some("parakeet-tdt-0.6b-v3"), Some("turbo"), 14.9, 15.0),
+            None
+        );
+    }
+
+    #[test]
+    fn long_audio_target_none_at_exact_threshold() {
+        assert_eq!(
+            long_audio_switch_target(Some("parakeet-tdt-0.6b-v3"), Some("turbo"), 15.0, 15.0),
+            None
+        );
+    }
+
+    #[test]
+    fn long_audio_target_some_above_threshold() {
+        assert_eq!(
+            long_audio_switch_target(Some("parakeet-tdt-0.6b-v3"), Some("turbo"), 15.1, 15.0),
+            Some("turbo")
+        );
+    }
+
+    #[test]
+    fn long_audio_target_none_when_already_on_long_model() {
+        assert_eq!(
+            long_audio_switch_target(Some("turbo"), Some("turbo"), 60.0, 15.0),
+            None
+        );
+    }
+
+    #[test]
+    fn long_audio_target_some_when_no_model_loaded_yet() {
+        assert_eq!(
+            long_audio_switch_target(None, Some("turbo"), 60.0, 15.0),
+            Some("turbo")
+        );
     }
 
     #[test]

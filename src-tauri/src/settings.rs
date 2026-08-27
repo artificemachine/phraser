@@ -674,6 +674,11 @@ fn default_typing_tool() -> TypingTool {
     TypingTool::Auto
 }
 
+/// Model new installs use for recordings longer than the long-audio threshold.
+/// Whisper Turbo is more accurate than the default short-form model on extended
+/// speech; it is only loaded if the user has actually downloaded it.
+pub const DEFAULT_LONG_AUDIO_MODEL: &str = "turbo";
+
 fn default_long_audio_threshold_seconds() -> f32 {
     10.0
 }
@@ -835,7 +840,7 @@ pub fn get_default_settings() -> AppSettings {
         paste_delay_ms: default_paste_delay_ms(),
         typing_tool: default_typing_tool(),
         external_script_path: None,
-        long_audio_model: None,
+        long_audio_model: Some(DEFAULT_LONG_AUDIO_MODEL.to_string()),
         long_audio_threshold_seconds: default_long_audio_threshold_seconds(),
         gemini_api_key: None,
         gemini_model: default_gemini_model(),
@@ -1278,5 +1283,15 @@ mod tests {
     fn lang_constants_match_expected_bcp47_tags() {
         assert_eq!(LANG_SIMPLIFIED_CHINESE, "zh-Hans");
         assert_eq!(LANG_TRADITIONAL_CHINESE, "zh-Hant");
+    }
+
+    #[test]
+    fn new_installs_default_to_turbo_for_long_audio() {
+        let settings = get_default_settings();
+        assert_eq!(
+            settings.long_audio_model.as_deref(),
+            Some(DEFAULT_LONG_AUDIO_MODEL)
+        );
+        assert_eq!(DEFAULT_LONG_AUDIO_MODEL, "turbo");
     }
 }

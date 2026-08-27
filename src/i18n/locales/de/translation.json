@@ -199,7 +199,11 @@
       "thresholdLabel": "Dauer-Schwellenwert (Sekunden)",
       "thresholdDescription": "Wechselt zum Modell für lange Aufnahmen, wenn die Aufnahme diese Dauer überschreitet.",
       "seconds": "{{value}}s",
-      "disabled": "Deaktiviert"
+      "disabled": "Deaktiviert",
+      "notDownloadedOption": "{{name}} (nicht heruntergeladen)",
+      "notDownloadedWarning": "Dieses Modell wurde noch nicht heruntergeladen. Lange Aufnahmen verwenden weiterhin Ihr aktuelles Modell, bis Sie es herunterladen.",
+      "downloadModel": "Herunterladen ({{size}} MB)",
+      "downloading": "Wird heruntergeladen..."
     },
     "general": {
       "title": "Allgemein",

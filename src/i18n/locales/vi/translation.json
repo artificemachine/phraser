@@ -372,7 +372,11 @@
       "modelDescription": "Chọn mô hình để sử dụng cho các bản ghi dài hơn ngưỡng quy định.",
       "thresholdLabel": "Ngưỡng thời lượng (giây)",
       "thresholdDescription": "Chuyển sang mô hình cho bản ghi dài khi thời gian ghi âm vượt quá thời lượng này.",
-      "seconds": "{{value}} giây"
+      "seconds": "{{value}} giây",
+      "notDownloadedOption": "{{name}} (chưa tải xuống)",
+      "notDownloadedWarning": "Mô hình này chưa được tải xuống. Các bản ghi dài sẽ tiếp tục dùng mô hình hiện tại cho đến khi bạn tải xuống.",
+      "downloadModel": "Tải xuống ({{size}} MB)",
+      "downloading": "Đang tải xuống..."
     },
     "postProcessing": {
       "title": "Xử lý sau",

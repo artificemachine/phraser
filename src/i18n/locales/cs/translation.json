@@ -199,7 +199,11 @@
       "thresholdLabel": "Hranice délky (sekundy)",
       "thresholdDescription": "Přepnout na model pro dlouhé nahrávky, pokud nahrávka překročí tuto délku.",
       "seconds": "{{value}} s",
-      "disabled": "Vypnuto"
+      "disabled": "Vypnuto",
+      "notDownloadedOption": "{{name}} (nestaženo)",
+      "notDownloadedWarning": "Tento model zatím není stažen. Dlouhé nahrávky budou nadále používat váš současný model, dokud jej nestáhnete.",
+      "downloadModel": "Stáhnout ({{size}} MB)",
+      "downloading": "Stahování..."
     },
     "general": {
       "title": "Obecné",
