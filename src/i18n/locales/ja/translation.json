@@ -614,7 +614,9 @@
     "off": "オフ",
     "yes": "はい",
     "no": "いいえ",
-    "noOptionsFound": "オプションが見つかりません"
+    "noOptionsFound": "オプションが見つかりません",
+    "downloading": "ダウンロード中...",
+    "downloadingCount": "{{count}} 件をダウンロード中..."
   },
   "accessibility": {
     "permissionsRequired": "アクセシビリティ権限が必要です",

@@ -614,7 +614,9 @@
     "off": "꺼짐",
     "yes": "예",
     "no": "아니오",
-    "noOptionsFound": "옵션을 찾을 수 없습니다"
+    "noOptionsFound": "옵션을 찾을 수 없습니다",
+    "downloading": "다운로드 중...",
+    "downloadingCount": "{{count}}개 다운로드 중..."
   },
   "accessibility": {
     "permissionsRequired": "접근성 권한 필요",

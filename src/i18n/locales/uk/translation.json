@@ -614,7 +614,9 @@
     "off": "Вимк.",
     "yes": "Так",
     "no": "Ні",
-    "noOptionsFound": "Опцій не знайдено"
+    "noOptionsFound": "Опцій не знайдено",
+    "downloading": "Завантаження...",
+    "downloadingCount": "Завантажується: {{count}}..."
   },
   "accessibility": {
     "permissionsRequired": "Потрібні права доступу",

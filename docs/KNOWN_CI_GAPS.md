@@ -4,14 +4,15 @@ Standing CI failures that are **not** caused by any single PR. They fail on ever
 pull request, which trains reviewers to ignore a red board. This file exists
 because GitHub Issues is disabled on this repository.
 
-Resolved sections are kept rather than deleted — the L3 entry below took three
+Resolved sections are kept rather than deleted. The L3 entry below took three
 PRs precisely because each layer was invisible until the one above it was fixed,
 and that is the part worth remembering.
 
-| Gap                                             | Status                              |
-| ----------------------------------------------- | ----------------------------------- |
-| L1 Dependency Risk (`bun audit`, 42 advisories) | open, fail-open                     |
-| L3 SAST (`cargo clippy` on Linux)               | **resolved 2026-08-27**, now gating |
+| Gap                                    | Status                              |
+| -------------------------------------- | ----------------------------------- |
+| L1 Dependency Risk, `bun audit` half   | resolved 2026-08-27, 42 → 0         |
+| L1 Dependency Risk, `cargo audit` half | 14 → 5, blocked upstream, fail-open |
+| L3 SAST (`cargo clippy` on Linux)      | **resolved 2026-08-27**, now gating |
 
 Last verified: 2026-08-27, against run
 [33087094264](https://github.com/artificemachine/phraser/actions/runs/33087094264)
@@ -19,98 +20,86 @@ Last verified: 2026-08-27, against run
 
 ---
 
-## L1 Dependency Risk — `bun audit` reports 42 vulnerabilities
+## L1 Dependency Risk: partly fixed, still fail-open
 
-**Job:** `security.yml` → `L1 Dependency Risk` → step `Bun audit --production`
-**Blocking:** no — the job sets `continue-on-error: true` (`security.yml:17`)
-**Status:** 42 vulnerabilities — 20 high, 19 moderate, 3 low
+**Job:** `security.yml` → `L1 Dependency Risk`
+**Blocking:** no. The job still sets `continue-on-error: true` (`security.yml:17`)
 
-> **Correction (2026-08-27):** an earlier revision claimed this job was blocking
-> because it "has no `continue-on-error`". It does have one, and always has.
-> Neither L1 nor L3 gates a merge — both security jobs are fail-open, so a red
-> board here has never stopped anything from shipping.
+Two independent audits run in this job, and they are in different states.
 
-> **Correction (2026-08-27):** the 42 figure comes from `bun audit --production`,
-> which is what CI runs. A plain `bun audit` reports 64, the extra 22 being
-> dev-only tooling (eslint chain, happy-dom, and one **critical** Vitest UI
-> arbitrary-file-read advisory, GHSA-5xrq-8626-4rwp).
+| Step          | Was | Now                    |
+| ------------- | --- | ---------------------- |
+| `Bun audit`   | 42  | **0**                  |
+| `Cargo audit` | 14  | **5**, all unreachable |
 
-Representative advisories:
+The job stays fail-open until `Cargo audit` reaches 0. Flipping it now would
+turn 5 advisories nobody can fix into a merge block on every PR.
 
-| Severity | Package                   | Advisory                                                                                                                           |
-| -------- | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| high     | `vite` (>=6.0.0 <=6.4.1)  | Arbitrary file read via dev server WebSocket — [GHSA-p9ff-h696-f583](https://github.com/advisories/GHSA-p9ff-h696-f583)            |
-| high     | `vite` (<=6.4.2)          | `server.fs.deny` bypass on Windows alternate paths — [GHSA-fx2h-pf6j-xcff](https://github.com/advisories/GHSA-fx2h-pf6j-xcff)      |
-| moderate | `vite` (<=6.4.1)          | Path traversal in optimized deps `.map` handling — [GHSA-4w7w-66w2-5vf9](https://github.com/advisories/GHSA-4w7w-66w2-5vf9)        |
-| moderate | `launch-editor` (<=6.4.2) | NTLMv2 hash disclosure via UNC path handling on Windows — [GHSA-v6wh-96g9-6wx3](https://github.com/advisories/GHSA-v6wh-96g9-6wx3) |
-| moderate | `yaml` (>=1.0.0 <1.10.3)  | Stack overflow via deeply nested collections — [GHSA-48c2-rrv3-qjmp](https://github.com/advisories/GHSA-48c2-rrv3-qjmp)            |
+### `bun audit`: fixed by refreshing a stale lockfile
 
-`yaml@1.10.2` is reached through two paths:
+`bun.lock` was last written 2026-03-05 and every advisory had a fix inside the
+ranges `package.json` already declared. `rm bun.lock && bun install` took it
+from 42 to 0 with `package.json` byte-identical. No version bumps, no Vite
+major.
 
-```
-vite > yaml
-react-select > @emotion/react > @emotion/babel-plugin > babel-plugin-macros > cosmiconfig > yaml
-```
+Two dev-tooling regressions came with the refresh and are fixed in the same PR:
 
-**Assessment:** most of these are dev-server and build-chain surface rather than
-shipped runtime surface — a Tauri release bundles built assets, not the Vite dev
-server. That lowers the urgency but not the need to clear the board.
-
-**Root cause: a stale lockfile, not outdated version ranges.** `bun.lock` was last
-written 2026-04-26 and every advisory has a fix inside the ranges `package.json`
-already declares.
-
-Grouped by root package:
-
-| Root        | Count | Reached via                                                |
-| ----------- | ----- | ---------------------------------------------------------- |
-| `next`      | 28    | `geist › next` — an auto-installed **peer dependency**     |
-| `vite`      | 4     | direct devDep, `@tailwindcss/vite`, `@vitejs/plugin-react` |
-| `postcss`   | 4     | `vite › postcss` and `geist › next › postcss`              |
-| `picomatch` | 2     | `tinyglobby › fdir › picomatch`                            |
-| `nanoid`    | 2     | `postcss › nanoid`                                         |
-| `sharp`     | 1     | `geist › next › sharp`                                     |
-| `yaml`      | 1     | `react-select › @emotion/react › … › cosmiconfig › yaml`   |
-
-`geist@1.7.0` peer-declares `next: >=13.2.0`, so bun installs Next.js (155 MB) and
-`sharp`. `geist` is used for exactly one `@font-face` in `src/App.css:5` loading a
-28 KB woff2. Nothing imports it.
-
-**Suggested fix:**
-
-1. `rm bun.lock && bun install`, commit the lockfile only. Verified to take the
-   audit from 42 → **0** with `package.json` byte-identical. No version bumps, no
-   Vite major.
-2. Two dev-tooling regressions ship with the refresh and must be handled in the
-   same PR or other workflows go red:
-   - `eslint-plugin-i18next` 6.1.5 flags two genuinely untranslated strings in
-     `src/components/shared/ProgressBar.tsx` (lines 58, 84). Add the i18n keys
-     across all 16 locales, or pin `~6.1.3`.
-   - `prettier` 3.9.6 escapes bare `~` in Markdown, rewriting `~/.local/bin` →
-     `~~/.local/bin` in `AGENTS.md:118` and `CLAUDE.md:193`. `AGENTS.md` is
-     protected by the repo's immutability rule — pin `~3.8.1` or add both files
-     to `.prettierignore` rather than letting prettier edit them.
-3. Full gate afterwards — including `bun run test:playwright` and one
-   `bun run tauri build`, neither of which has been exercised against the
-   refreshed tree.
-
-**Separately worth doing:** drop `geist` and vendor the woff2 into
-`src/assets/fonts/` with its SIL OFL 1.1 notice. That deletes 155 MB and the
-entire Next.js advisory surface; without it the next Next.js CVE re-reds this job
-for a font file.
+- `eslint-plugin-i18next` now flags two genuinely untranslated strings in
+  `src/components/shared/ProgressBar.tsx`. These were real i18n bugs the old
+  pinned version missed; they now go through `common.downloading` and
+  `common.downloadingCount` in all 16 locales.
+- Prettier 3.9+ escapes a bare tilde in Markdown by doubling it, so the
+  home-relative paths in `AGENTS.md` and `CLAUDE.md` get mangled. Two of those
+  on one line render as GFM strikethrough, so the "fix" corrupts the text. Both
+  files are also protected from automated edits by repo policy, so they are in
+  `.prettierignore` rather than rewritten.
 
 > **Correction (2026-08-27):** an earlier revision recommended `bun audit fix`.
-> That is not a bun command — `bun audit` accepts only `--json`, `--audit-level`,
-> and `--ignore`, and silently ignores the argument. Bun's own hint is
-> `bun update`, which is worse here: it re-resolves only direct dependencies
-> (42 → 50) and rewrites ~30 caret ranges in `package.json` as a side effect.
+> That is not a bun command. `bun audit` accepts only `--json`,
+> `--audit-level`, and `--ignore`, and silently ignores the argument. Bun's own
+> hint is `bun update`, which is worse here: it re-resolves only direct
+> dependencies (42 → 50) and rewrites ~30 caret ranges in `package.json` as a
+> side effect.
+
+### `cargo audit`: 14 to 5, the rest are blocked upstream
+
+A targeted `cargo update -p h2 -p quick-xml@0.37.5 -p quick-xml@0.38.3 -p quinn-proto -p rkyv -p rustls-webpki -p tar`
+cleared 9 of the 14 within semver.
+
+**Do not run a bare `cargo update`.** It reaches 0 advisories but bumps `ort`
+inside its range, and `transcribe-rs` does not compile against the newer API:
+84 errors, mostly `field 'inputs' of struct 'Session' is private` and
+`TensorArrayData` trait bounds. Verified 2026-08-27.
+
+The remaining 5 need semver-major bumps of transitive dependencies, so they
+cannot be fixed from this repo:
+
+| Crate              | Advisory                             | Needs      | Reached via                                              |
+| ------------------ | ------------------------------------ | ---------- | -------------------------------------------------------- |
+| `quick-xml` 0.37.5 | RUSTSEC-2026-0194, RUSTSEC-2026-0195 | `>=0.41.0` | `wayland-scanner` → … → `tauri-plugin-clipboard-manager` |
+| `quick-xml` 0.38.4 | RUSTSEC-2026-0194, RUSTSEC-2026-0195 | `>=0.41.0` | `plist` → `os_info` / `tauri`                            |
+| `rkyv` 0.7.46      | RUSTSEC-2026-0235                    | `>=0.8.17` | `rust_decimal` 1.39.0                                    |
+
+All three are parser/allocation denial-of-service issues in code paths that
+handle local files (clipboard protocol descriptions, `Info.plist`), not remote
+attacker input. They clear when Tauri and `rust_decimal` bump their own
+dependencies.
+
+### Still worth doing
+
+Drop `geist` and vendor its woff2 into `src/assets/fonts/` with the SIL OFL 1.1
+notice. `geist@1.7.0` peer-declares `next: >=13.2.0`, so bun installs Next.js
+(155 MB) and `sharp` to serve exactly one `@font-face` in `src/App.css:5`
+loading a 28 KB file. Nothing imports it. Removing it deletes the entire
+Next.js advisory surface; without it, the next Next.js CVE re-reds this job for
+a font.
 
 ---
 
-## L3 SAST — RESOLVED 2026-08-27
+## L3 SAST: RESOLVED 2026-08-27
 
 **Job:** `security.yml` → `L3 SAST` → step `Rust clippy`
-**Blocking:** yes, as of PR #23 — `continue-on-error: true` has been removed now
+**Blocking:** yes, as of PR #23. `continue-on-error: true` has been removed now
 that the step genuinely passes.
 
 First green Linux run:
@@ -120,7 +109,7 @@ First green Linux run:
 This gap had three layers, each hidden behind the one in front of it. Only
 fixing one exposed the next, so it took three PRs to clear.
 
-### Layer 1 — the build script panicked before clippy ran (PR #21)
+### Layer 1: the build script panicked before clippy ran (PR #21)
 
 ```
 Could NOT find Vulkan
@@ -146,18 +135,18 @@ proven in `build.yml`.
 Uncovered 2026-07-11 while fixing an earlier `glib-2.0` failure in the same
 job; unfixed until 2026-08-27.
 
-### Layer 2 — 47 clippy lints nobody had ever compiled (PR #22)
+### Layer 2: 47 clippy lints nobody had ever compiled (PR #22)
 
 With the panic gone, clippy ran for the first time and `-D warnings` promoted
 47 violations to errors. None came from PR #21; the code had simply never been
 linted on Linux. 41 reproduce on macOS, 6 were Linux-only.
 
 Worth knowing for next time: `cargo clippy --fix` was silently rolling back the
-**entire** batch because two of its own suggestions do not compile —
+**entire** batch because two of its own suggestions do not compile:
 `map_entry` moves a key before a later borrow, and `manual_inspect` leaves an
 unused binding. Excluding those two with `-A` let the other 32 apply.
 
-### Layer 3 — 6 rustc warnings underneath the lints (PR #22)
+### Layer 3: 6 rustc warnings underneath the lints (PR #22)
 
 Clearing the lints revealed a further 6 plain rustc warnings (`unused_imports`,
 `unused_mut`, `unused_variables`, `dead_code`), each a symbol whose only use

@@ -177,3 +177,7 @@
 - 2026-08-27: chore: gate 6 Linux-only unused imports/vars/const behind cfg so clippy -D warnings passes on Linux
 - 2026-08-27: chore: L3 SAST now gates (continue-on-error removed) after cargo clippy passed on Linux for the first time
 - 2026-08-27: fix: add the missing src-tauri/tauri.unsigned.conf.json so bun run app:create works
+- 2026-08-27: security: refresh bun.lock, taking bun audit from 42 vulnerabilities to 0 with package.json unchanged
+- 2026-08-27: security: targeted cargo update (h2, quick-xml, quinn-proto, rustls-webpki, tar) taking cargo audit from 14 to 5
+- 2026-08-27: fix: translate the two hardcoded ProgressBar strings across all 16 locales
+- 2026-08-27: chore: exclude AGENTS.md and CLAUDE.md from prettier (3.9+ escapes bare ~ as ~~)
